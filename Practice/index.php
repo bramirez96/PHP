@@ -23,6 +23,7 @@
 	$xx = True; //Boolean
 	$yx = False; //Boolean
 	$sx = "Fuck this guy.";
+	echo '<p>$ix</p>'; //SINGLE QUOTE ISSUES
 	echo "<p>$ix</p>";
 	echo "<p>$fx</p>";
 	echo "<p>$fy</p>";
@@ -37,7 +38,12 @@
 <?php
 	//Operator Types
 	//Operator precedence = PEMDAS MOTHAFUCKAAA
-	
+	//Ternary Operator example CAREFUL OF OPERATOR PRECEDENCE BITCH
+	$hours = 24;
+	$payrate = 10;
+	$paycheck = $hours < 0 ? 0 : 
+				($hours >= 20 ? 20 * $payrate + 2 * ($hours - 20) * $payrate : $hours * $payrate);
+	echo "<p>Paycheck = $$paycheck</p";
 ?>
 
 </body>
