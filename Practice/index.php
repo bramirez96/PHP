@@ -47,13 +47,14 @@
 	
 	/*
 		HOMEWORK:
-		Input a score from 1-100, and ouput a grade on the standard grading scale.
+		Input a score from 1-100, and output a grade on the standard grading scale.
 	*/
-	$score = 90;
-	$grade = $score < 60 ? "F" :
-			 ($score < 70 ? "D" :
-			 ($score < 80 ? "C" :
-			 ($score < 90 ? "B" : "A")));
+	$score = 100;
+	$grade = $score < 60 ? "an F" : (
+	         $score < 70 ? "a D"  : (
+	         $score < 80 ? "a C"  : (
+		 $score < 90 ? "a B"  : 
+                               "an A")));
 	echo "<p> Your grade is ".$grade.".</p>";
 ?>
 
