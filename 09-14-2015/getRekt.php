@@ -14,15 +14,8 @@
 	</head>
 	
 	<body>
-		<form action="getRekt.php" method="post">
-			First name: <br />
-			<input type="text" name="fname" /> <br />
-			Last name: <br />
-			<input type="text" name="lname" /> <br />
-			<input type="submit" value="Submit" />
-		</form>
 		<?php
-			//Empty PHP block, for shits and giggles.
+			echo "Hello, ".$_POST['fname']." ".$_POST['lname']."!";
 		?>
 	</body>
 </html>
