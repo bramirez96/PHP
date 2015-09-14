@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <title>What's Your Grade?</title>
+	<?php
+		/*
+			Brandon Ramirez
+			Version 1.2
+			Create a line of code using ternary operators that takes a number 0-100 and returns a string value with a letter grade.
+		*/
+	?>
 </head>
 <body>
 
