@@ -7,7 +7,7 @@
 			/*
 				Brandon Ramirez
 				CIS12 - PHP Programming
-				09/21/2015 v1.2
+				09/21/2015 v1.3
 				Purpose: To demonstrate understanding of loop statements
 			*/
 		?>
@@ -49,7 +49,7 @@
 				$prin = number_format($prin, 2, ".", "");
 				echo "<tr>
 						<td>$year</td>
-						<td>$".number_format($prin)."</td>
+						<td>$".number_format($prin, 2)."</td>
 					  </tr>";
 			};
 			echo "</table>";
