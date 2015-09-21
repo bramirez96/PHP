@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Savings For Loop</title>
+		<title>Savings Do...While Loop</title>
 		<?php
 			/*
 				Brandon Ramirez
@@ -44,14 +44,15 @@
 					<th>". $iRate*100 ."% Savings</th>
 				  </tr>";
 			//Populate table with information using a for loop
-			for ($year=1; $year <= $nYears; $year++) {
+			$year = 1;
+			do {
 				$prin 	*= (1 + $iRate);
 				$output = number_format($prin, 2);
 				echo "<tr>
 						<td>$year</td>
 						<td>$$output</td>
 					  </tr>";
-			};
+			} while (++$year <= $nYears);
 			echo "</table>";
 		?>
 	</body>
