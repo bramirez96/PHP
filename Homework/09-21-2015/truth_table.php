@@ -16,18 +16,18 @@
 					border-collapse: collapse;
 					font-family: "Arial", sans-serif;
 					font-weight: 700;
-				}
-				table tr:first-of-type td {
+				} table tr:first-of-type th {
 					font-size: 16px;
 					background-color: #000;
 					color: #fff;
 					border-width: 0 1px;
-				}
-				table tr td {
+				} table tr td, table tr th {
 					border: 1px solid black;
 					padding: 5px 10px;
 					text-align: center;
 					font-size: .8em;
+				} table tr td:nth-child(even) {
+					background-color: #ccc;
 				}
 			</style>
 	</head>
@@ -35,19 +35,19 @@
 		<table>
 			<tbody>
 				<tr>
-					<td>X</td>
-					<td>Y</td>
-					<td>!X</td>
-					<td>!Y</td>
-					<td>X && Y</td>
-					<td>X || Y</td>
-					<td>X ^ Y</td>
-					<td>X ^ Y ^ Y</td>
-					<td>X ^ Y ^ X</td>
-					<td>!(X && Y)</td>
-					<td>!X || !Y</td>
-					<td>!(X || Y)</td>
-					<td>!X && !Y</td>
+					<th>X</th>
+					<th>Y</th>
+					<th>!X</th>
+					<th>!Y</th>
+					<th>X && Y</th>
+					<th>X || Y</th>
+					<th>X ^ Y</th>
+					<th>X ^ Y ^ Y</th>
+					<th>X ^ Y ^ X</th>
+					<th>!(X && Y)</th>
+					<th>!X || !Y</th>
+					<th>!(X || Y)</th>
+					<th>!X && !Y</th>
 				</tr>
 				<tr>
 					<?php
