@@ -80,6 +80,10 @@
 			echo "<p>Future Value 5 = $".number_format($f5, 2)."</p>";
 			echo "<p>Future Value 6 = $".number_format($f6, 2)."</p>";
 			disp7(save7($pv, $int, $nYears));
+			//209.129.8.2 is the class server... @ cis12.net
+			//UN: 48939
+			//PW: 48939cis12
+			//Port 10000
 		?>
 	</body>
 </html>
