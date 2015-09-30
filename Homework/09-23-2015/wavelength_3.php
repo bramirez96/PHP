@@ -12,6 +12,7 @@
 			*/
 			//Initialize Multi-dimensional array
 			$x = [[], [], []];
+			
 			for ($index=1,$wave=3;$wave>=-12;$index++,$wave--) {
 				array_push($x[0], $index);
 				array_push($x[1], $wave);
