@@ -7,7 +7,7 @@
 			/*
 				Brandon Ramirez	
 				CIS-12 PHP Programming
-				09/28/2015 v1.0
+				09/28/2015 v2.0
 				Purpose: To create a table classifying electromagnetic wavelengths
 			*/
 			function makeArray($anArray = []) {
