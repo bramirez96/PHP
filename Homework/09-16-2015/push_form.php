@@ -19,7 +19,8 @@
 				$wage = 15; //Given in $/hr
 				$x 	  = $_POST["hours"];
 				if 		(!is_numeric($x)) $str = "You did not enter a number!"; //Checks if input is a number
-				else if ($x < 0) 		  $str = "You did not enter a valid number!"; //Checks if input is positive integer
+				else if ($x < 0)          $str = "You did not enter a valid number!"; //Checks if input is positive integer
+				else if ($x >= 168)       $str = "You can't work that much in a week!";
 				else {
 					$amt = ($x <= 20) ? $x * $wage 						   : (
 					       ($x <= 40) ? ($x - 20) * $wage * 2 + 20 * $wage : (

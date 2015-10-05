@@ -15,16 +15,18 @@
 				for ($index=1, $wave=3; $wave>=-12; $index++, $wave--) {
 					array_push($anArray[0], $index);
 					array_push($anArray[1], $wave);
-					array_push($anArray[2], $wave<=  3 && $wave>= 1 ? "Radio" :(
-											$wave<=  0 && $wave>=-3 ? "Microwave" :(
-											$wave<= -4 && $wave>=-5 ? "Infrared" :(
+					array_push($anArray[2], $wave<=  3 && $wave>= 2 ? "Radio" :(
+											$wave==  1				? "Radio - Microwave" :(
+											$wave==  0				? "Microwave - Radio" :(
+											$wave<= -1 && $wave>=-2 ? "Microwave" :(
+											$wave<= -3 && $wave>=-5 ? "Infrared" :(
 											$wave== -6				? "Visiable" :(
-											$wave== -7				? "Visiable Ultraviolet" :(
+											$wave== -7				? "Visiable - Ultraviolet" :(
 											$wave== -8				? "Ultraviolet" :(
-											$wave== -9				? "Ultraviolet X-Ray" :(
+											$wave== -9				? "Ultraviolet - X-Ray" :(
 											$wave==-10				? "X-Ray" :(
-											$wave==-11				? "Gamma X-Ray" :(
-																	  "Gamma Ray"))))))))));
+											$wave==-11				? "Gamma - X-Ray" :(
+																	  "Gamma Ray"))))))))))));
 				}
 				return $anArray;
 			}
