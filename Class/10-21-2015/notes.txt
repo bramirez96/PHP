@@ -1,0 +1,63 @@
+Personal Project:
+	E-commerce, store front, shopping cart
+	games
+	charity/donation
+Class Project:
+	Survey Engine... yaaaay. Seems kinda legit, tbh.
+		survey
+		questions
+		users take survey don't need to log in?
+			should be associated with question results
+			I think they should log in, too. I SHALL MAKE IT SO!
+		administrator
+			manages users - add and allow
+			views survey results
+		USERS TABLE
+			with column "creator" that takes boolean y or n
+			need to be able to view, create, edit surveys
+			see results of their surveys
+			browse a list of survey results
+---------------------------------------------------------------------
+TABLES
+	admin
+		id
+		username
+		password
+	--ADMIN GIVES USERS PERMISSION TO MAKE SURVEYS--
+	user - generate survey
+		id
+		username
+		password
+	--USERS CREATE SURVEYS--
+	survey
+		survey id
+		creator id
+	--XREF SURVEY_QUESTIONS--
+	questions
+		question id
+		survey id
+		question
+	user who takes survey
+		user id
+		username
+		password
+	--XREF TO ANSWERS TABLE--
+	answers
+		id
+		user id
+		quiz
+		question
+		answer
+---------------------------------------------------------------------
+mysql query for retrieving and quantifying answers uses SELECT DISTINCT userid, quiz, question, answer
+---------------------------------------------------------------------
+define mysqli_connect parameters as CONSTANTS INSTEAD OF PUTTING THEM IN THE STATEMENT CALL
+SHA1(string) ENCRYPTS  DATA into the cell
+Definitely look at the sql chapters in the book, they're sexy af
+---------------------------------------------------------------------
+HOMEWORK
+	I think I'm supposed to make a form
+		farovite movie genre
+		favorite color
+		DUMB SHIT MAN
+	Wireframe & database design for class project
