@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>My Game</title>
+		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
+		<script type="text/javascript" src="./scripts/main.js"></script>
+		<script type="text/javascript">
+			localStorage.setItem("username", "password");
+			localStorage.getItem("username");
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<header id="pageHead">
+				<a href="./index.html" id="logo">Title</a>
+				<div id="titleText"> <!-- Think more in-depth about which tags to use here -->
+					<div id="title">Name of the Game</div>
+					<div id="catch">Catchy one-liner</div>
+					<nav>
+						<ul>
+							<li><a href="./index.html">Home</a></li>
+							<li><a href="./signup.html">Sign Up</a></li>
+							<li><a href="#">How to Play</a></li>
+						</ul>
+					</nav>
+				</div>
+			</header>
+			
+			<div class="grid">
+				<div class="col-1-4">
+					test
+				</div>
+				<div class="col-1-2" id="signupModule">
+					<form method="get" onsubmit="return checkSignupForm(this)" action="./success.html">
+						<p>Sign Up</p>
+						<br />
+						<input type="text" name="user" placeholder="Username"></input>
+						<div id="userError" class="tiny" style="display:none;">Username already taken!</div>
+						<br />
+						<input type="password" name="pass" placeholder="Password"></input>
+						<div id="nullError" class="tiny" style="display:none;">No password entered!</div>
+						<br />
+						<input type="password" name="pVer" placeholder="Confirm Password"></input>
+						<div id="passError" class="tiny" style="display:none;">Passwords don't match!</div>
+						<br />
+						<input type="submit" id="submit" value="Sign Up"></input>
+					</form>
+				</div><!-- End col-1-2 -->
+				<div class="col-1-4">
+					test
+				</div><!-- End col-1-4 -->
+			</div>
+			
+		</div><!-- End of .container -->	
+		<footer>
+			<p>
+				Copyright or something
+			</p>
+		</footer>
+	</body>
+</html>
