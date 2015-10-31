@@ -6,6 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
 		<link rel="stylesheet" type="text/css" href="./styles/gameGUI.css" />
 		<script type="text/javascript" src="./scripts/gameGUI.js"></script>
+		<script type="text/javascript" src="./scripts/main.js"></script>
+		<script type="text/javascript" src="./scripts/storageManagement.js"></script>
 		<script type="text/javascript">
 			if (location.href.indexOf("?") > -1) {
 				var login = new Object();
@@ -16,23 +18,20 @@
 					var x = data[i].split("=");
 					login[x[0]] = x[1];
 				}
-				if (localStorage.getItem(login["user"]) != null) {
-					if (localStorage.getItem(login["user"]) == login["pass"]) {
-						window.location.assign("./home.html");
-					}
-				}
+				sessionStorage.user = login["user"];
 			}
+			window.onload = makeGUI;
 		</script>
 	</head>
 	<body>
 		<div class="container">
-			<header id="menuBar" onload="makeHeader(this)">
+			<header id="headModule">
 
 			</header>
 			
 			<div class="grid">
 				
-				<div class="col-1-4" id="userModule" onload="makeUserModule()">
+				<div class="col-1-4" id="userModule">
 					
 				</div><!-- End .col-1-4 -->
 				<div class="col-3-4" -->

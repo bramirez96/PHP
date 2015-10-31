@@ -126,6 +126,12 @@ header:after {
 .col-1-4 {
 	width: 25%;
 }
+.col-3-4 {
+	width: 75%;
+}
+.col-1-1 {
+	width: 100%;
+}
 
 
 
@@ -146,6 +152,12 @@ footer p {
 .center {
 	text-align: center;
 }
+.right {
+	text-align: right;
+}
+.left {
+	text-align: left;
+}
 .tiny {
 	font-size: .65em;
 	font-style: italic;
@@ -155,6 +167,9 @@ footer p {
 	font-style: italic;
 	font-size: 0.9em;
 	color: #333;
+}
+#userModule > div.botSpace {
+	padding-bottom: 10px;
 }
 
 

@@ -1,14 +1,34 @@
+//gameGUI.js for use in game pages to automatically set up page
 /**
-* Header GUI Piece
+* makeGUI() calls all GUI functions
 */
-function makeHeader(header) {
-	header.innerHTML = ' \
-		<nav>\
-			<ul>\
-				<li><a href="./home.html" class="menuItem" title="Home">Home</a></li>\
-				<li><a href="./map.html" class="menuItem" title="Map">Map</a></li>\
-				<li><a href="./hero.html" class="menuItem" title="Hero">Hero</a></li>\
-				<li><a href="./inventory.html" class="menuItem" title="Inventory">Inventory</a></li>\
-			</ul>\
-		</nav>'
+function makeGUI() {
+	makeHeader();
+	makeUserModule();
+}
+/**
+* makeHeader() populates #headModule with menu items
+*/
+function makeHeader() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      document.getElementById("headModule").innerHTML = xhttp.responseText;
+    }
+  }
+  xhttp.open("GET", "./modules/headModule.html", true);
+  xhttp.send();
+}
+/**
+* makeUserModule() populates #userModule with user information
+*/
+function makeUserModule() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      document.getElementById("userModule").innerHTML = xhttp.responseText;
+    }
+  }
+  xhttp.open("GET", "./modules/userModule.html", true);
+  xhttp.send();
 }

@@ -1,5 +1,19 @@
 //main.js main functions for thingamajig
 /**
+* onPageLoad() loads stored JSON strings and parses them into objects
+* Eventually move this to a game-specific file
+*/
+function onPageLoad() {
+	x = sessionStorage.user; //Returns ToEnd
+	var usr = JSON.parse(localStorage.getItem(x));
+}
+function onLeavePage() {
+	x = sessionStorage.user; //returns ToEnd
+	localStorage.setItem(x, JSON.stringify(usr));
+}
+//usr is the object with stored "username: user object" pairs stringified
+
+/**
 * checkLoginForm() stops form submit and displays errors 
 * if invalid username or password are submitted
 */
