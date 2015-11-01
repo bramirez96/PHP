@@ -1,18 +1,15 @@
 //main.js main functions for thingamajig
+
 /**
-* onPageLoad() loads stored JSON strings and parses them into objects
+* loadUsers() loads stored JSON strings and parses them into objects
 * Eventually move this to a game-specific file
 */
-function onPageLoad() {
-	x = sessionStorage.user; //Returns ToEnd
-	var usr = JSON.parse(localStorage.getItem(x));
+function loadUsers() {
+	if (localStorage.user) var z = localStorage.user;
+	else z = '{"keys":[]}';
+	usr = JSON.parse(z);
 }
-function onLeavePage() {
-	x = sessionStorage.user; //returns ToEnd
-	localStorage.setItem(x, JSON.stringify(usr));
-}
-//usr is the object with stored "username: user object" pairs stringified
-
+document.addEventListener(onload, loadUsers());
 /**
 * checkLoginForm() stops form submit and displays errors 
 * if invalid username or password are submitted
@@ -22,18 +19,20 @@ function checkLoginForm(form) {
 	y = form.elements["pass"].value;
 	document.getElementById("passError").style.display="none";
 	document.getElementById("userError").style.display="none";
-	if (localStorage.getItem(x)) {//If storage item exists
-		if (localStorage.getItem(x) == y){//Check the password
+	if (usr[x]) {//If storage item exists
+		//alert("username exists");
+		if ((usr[x]["pass"]) == y){//Check the password
+			//alert("and your password is right");
 			return true;
 		} else {
 			document.getElementById("passError").style.display="inline";
+			//alert("but your password is wrong");
 			return false;
 		}
 	} else {
+		//alert("username doesnt exist");
 		document.getElementById("userError").style.display="inline";
-		if (localStorage.getItem(x) != y) {
-			document.getElementById("passError").style.display="inline";
-		}
+		document.getElementById("passError").style.display="inline";
 		return false;
 	}
 }

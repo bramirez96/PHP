@@ -15,7 +15,8 @@
 					var x = data[i].split("=");
 					signup[x[0]] = x[1];
 				}
-				localStorage.setItem(signup["user"], signup["pass"]);
+				usr[signup["user"]] = {"pass": signup["pass"], "key": usr.keys.length};
+				usr.keys.push(usr.keys.length);
 				window.onload = function() {
 					str = "<p>You have successfully registered the following account: <br /><br />\
 					Username: <span class='loginInfo'>" + signup["user"] + "</span><br />\
@@ -23,6 +24,10 @@
 					<span class='tiny'><a href='./index.html' title='Click Here'>Click here</a> to login.</span></p>";
 					document.getElementById("success").innerHTML = str;
 				}
+			}
+			window.onbeforeunload = function() {
+				x = JSON.stringify(usr);
+				localStorage.user = x;
 			}
 		</script>
 	</head>
