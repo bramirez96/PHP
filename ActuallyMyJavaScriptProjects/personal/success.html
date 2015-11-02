@@ -4,31 +4,26 @@
 		<meta charset="utf-8" />
 		<title>My Game</title>
 		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="./scripts/main.js"></script>
 		<script type="text/javascript">
-			if (location.href.indexOf("?") > -1) {
-				var signup = new Object();
-				var url = location.href;
-				var info = url.split("?");
-				var data = info[1].split("&");
-				for (var i = 0; i < data.length; i++) {
-					var x = data[i].split("=");
-					signup[x[0]] = x[1];
-				}
-				usr[signup["user"]] = {"pass": signup["pass"], "key": usr.keys.length};
+			$(document).ready(function() {
+				stripURL();
+				loadUsers();
+				usr[queryString["user"]] = {"pass": queryString["pass"], "key": usr.keys.length};
 				usr.keys.push(usr.keys.length);
-				window.onload = function() {
-					str = "<p>You have successfully registered the following account: <br /><br />\
-					Username: <span class='loginInfo'>" + signup["user"] + "</span><br />\
-					Password: <span class='loginInfo'>" + signup["pass"] + "</span><br /><br />\
-					<span class='tiny'><a href='./index.html' title='Click Here'>Click here</a> to login.</span></p>";
+				$(window).load(function() {
+					str = "<p>You have successfully registered the following account: <br /><br />"+
+						"Username: <span class='loginInfo'>" + queryString["user"] + "</span><br />"+
+						"Password: <span class='loginInfo'>" + queryString["pass"] + "</span><br /><br />"+
+						"<span class='tiny'><a href='./index.html' title='Click Here'>Click here</a> to login.</span></p>";
 					document.getElementById("success").innerHTML = str;
-				}
-			}
-			window.onbeforeunload = function() {
+					});
+			});
+			$(window).unload(function() {
 				x = JSON.stringify(usr);
 				localStorage.user = x;
-			}
+			});
 		</script>
 	</head>
 	<body>

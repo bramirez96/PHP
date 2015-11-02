@@ -4,18 +4,10 @@
 		<meta charset="utf-8" />
 		<title>My Game</title>
 		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="./scripts/main.js"></script>
 		<script type="text/javascript">
-			if (location.href.indexOf("?") > -1) {
-				var login = new Object();
-				var url = location.href;
-				var info = url.split("?");
-				var data = info[1].split("&");
-				for (var i = 0; i < data.length; i++) {
-					var x = data[i].split("=");
-					login[x[0]] = x[1];
-				}
-			}
+			$(document).ready(loadUsers());
 		</script>
 	</head>
 	<body>
@@ -37,7 +29,7 @@
 			
 			<div class="grid">
 				<div class="col-1-3" id="loginModule">
-					<form method="get" onsubmit="return checkLoginForm(this)" action="./home.html">
+					<form method="get" onsubmit="return checkLoginForm(this)" action="./login.html">
 						<p>Log In</p>
 						<br />
 						<input type="text" name="user" placeholder="Username"></input>
@@ -45,6 +37,7 @@
 						<br />
 						<input type="password" name="pass" placeholder="Password"></input>
 						<div id="passError" class="tiny" style="display:none;">Incorrect password!</div>
+						<input type="text" name="key" style="display: none;"></input>
 						<br />
 						<input type="submit" value="Log In"></input>
 					</form>

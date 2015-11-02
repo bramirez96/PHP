@@ -5,25 +5,11 @@
 		<title>Home</title>
 		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
 		<link rel="stylesheet" type="text/css" href="./styles/gameGUI.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="./scripts/gameGUI.js"></script>
 		<script type="text/javascript" src="./scripts/main.js"></script>
-		<script type="text/javascript" src="./scripts/storageManagement.js"></script>
-		<script type="text/javascript">
-			if (location.href.indexOf("?") > -1) {
-				var login = new Object();
-				var url = location.href;
-				var info = url.split("?");
-				var data = info[1].split("&");
-				for (var i = 0; i < data.length; i++) {
-					var x = data[i].split("=");
-					login[x[0]] = x[1];
-				}
-				sessionStorage.user = login["user"];
-			}
-			window.onload = makeGUI;
-		</script>
 	</head>
-	<body onbeforeunload="onLeavePage()">
+	<body>
 		<div class="container">
 			<header id="headModule">
 
