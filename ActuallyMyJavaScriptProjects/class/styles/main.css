@@ -107,6 +107,15 @@ header:after {
 	float: left;
 	margin-left: 5px;
 }
+#userModule input {
+	width: 50%;
+}
+#userModule form p {
+	margin-bottom: 10px;
+}
+#userModule form + p {
+	margin-top: 10px;
+}
 /* !Set Up The Grid Layout */
 
 .container {

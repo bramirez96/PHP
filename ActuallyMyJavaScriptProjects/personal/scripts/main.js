@@ -10,6 +10,11 @@ function loadUsers() {
 	usr = JSON.parse(z);
 }
 document.addEventListener(onload, loadUsers());
+function logOut() {
+	sessionStorage.clear();
+	alert("You will now be returned to the login screen.");
+	window.location.assign("./index.html");
+}
 /**
 * checkLoginForm() stops form submit and displays errors 
 * if invalid username or password are submitted
@@ -47,7 +52,7 @@ function checkSignupForm(form) {
 	document.getElementById("userError").style.display="none";
 	document.getElementById("passError").style.display="none";
 	document.getElementById("nullError").style.display="none";
-	if (localStorage.getItem(x) == null) { //If username isn't taken
+	if (usr[x] == null) { //If username isn't taken
 		if (y != "") {
 			if (y == z) {
 				return true;
