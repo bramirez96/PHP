@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>My Game</title>
+		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
+		<script type="text/javascript" src="./scripts/main.js"></script>
+		<script type="text/javascript">
+			if (location.href.indexOf("?") > -1) {
+				var signup = new Object();
+				var url = location.href;
+				var info = url.split("?");
+				var data = info[1].split("&");
+				for (var i = 0; i < data.length; i++) {
+					var x = data[i].split("=");
+					signup[x[0]] = x[1];
+				}
+				usr[signup["user"]] = {"pass": signup["pass"], "key": usr.keys.length};
+				usr.keys.push(usr.keys.length);
+				window.onload = function() {
+					str = "<p>You have successfully registered the following account: <br /><br />\
+					Username: <span class='loginInfo'>" + signup["user"] + "</span><br />\
+					Password: <span class='loginInfo'>" + signup["pass"] + "</span><br /><br />\
+					<span class='tiny'><a href='./index.html' title='Click Here'>Click here</a> to login.</span></p>";
+					document.getElementById("success").innerHTML = str;
+				}
+			}
+			window.onbeforeunload = function() {
+				x = JSON.stringify(usr);
+				localStorage.user = x;
+			}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<header id="pageHead">
+				<a href="./index.html" id="logo">Title</a>
+				<div id="titleText"> <!-- Think more in-depth about which tags to use here -->
+					<div id="title">Name of the Game</div>
+					<div id="catch">Catchy one-liner</div>
+					<nav>
+						<ul>
+							<li><a href="./index.html">Home</a></li>
+							<li><a href="./signup.html">Sign Up</a></li>
+							<li><a href="#">How to Play</a></li>
+						</ul>
+					</nav>
+				</div>
+			</header>
+			
+			<div class="grid">
+				<div class="col-2-3" id="success">
+					
+				</div><!-- End col-2-3 -->
+				<div class="col-1-3">
+					test
+				</div><!-- End col-1-3 -->
+			</div>
+			
+		</div><!-- End of .container -->	
+		<footer>
+			<p>
+				Copyright or something
+			</p>
+		</footer>
+	</body>
+</html>
