@@ -1,0 +1,19 @@
+<form id="newChar" onsubmit="return checkChar(this)" action="./home.html" method="post">
+	<input type="text" name="charName" placeholder="Character Name"></input>
+	<br />
+	<p class="tiny">Name must be at least 5 letters
+	<br /> No spaces.</p>
+	<br />
+	<div id="nameError" style="display:none;">Invalid name!</div>
+	<br />
+	<p>Select a Class</p>
+	<input type="radio" name="class" value="mage" checked="">Mage</input>
+	<br />
+	<input type="radio" name="class" value="warrior">Warrior</input>
+	<br />
+	<input type="radio" name="class" value="rogue">Rogue</input>
+	<br />
+	<div id="classError" style="display:none;">No class selected!</div>
+	<br />
+	<br />
+</form>

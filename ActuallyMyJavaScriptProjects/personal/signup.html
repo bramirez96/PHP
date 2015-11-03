@@ -35,11 +35,17 @@
 					<form method="get" onsubmit="return checkSignupForm(this)" action="./success.html">
 						<p>Sign Up</p>
 						<br />
+						<p class="tiny">
+							Username and password must be 
+							<br />between 6 and 20 characters. 
+							<br />No spaces.
+						</p>
+						<br />
 						<input type="text" name="user" placeholder="Username"></input>
 						<div id="userError" class="tiny" style="display:none;">Username already taken!</div>
 						<br />
 						<input type="password" name="pass" placeholder="Password"></input>
-						<div id="nullError" class="tiny" style="display:none;">No password entered!</div>
+						<div id="nullError" class="tiny" style="display:none;">Invalid password!</div>
 						<br />
 						<input type="password" name="pVer" placeholder="Confirm Password"></input>
 						<div id="passError" class="tiny" style="display:none;">Passwords don't match!</div>

@@ -1,7 +1,7 @@
 //main.js main functions for thingamajig
 var queryString = {}; //set it as global for use bye functions
 function stripURL() {
-	var myExp = /([^?&]+)=([^=&]*)/g;
+	var myExp = /([^?&]+)=([^=&]*)/g; //regex to get query string from the end of a url
 	var url = location.href;
 	var x;
 	do {
@@ -28,6 +28,17 @@ function logOut() {
 	sessionStorage.clear();
 	alert("You will now be returned to the login screen.");
 	window.location.assign("./index.html");
+}
+/**
+* checkInput() is really only for the signup form and exists to avoid confusion with plus signs
+* in case user tries to input a space... 
+* DON'T FORGET TO IMPLEMENT THIS
+* YOU'RE GONNA NEED TO REWRITE THE SIGNUP CODE... AGAIN
+*/
+function checkInput(x) {
+	var myExp = /^[^\s]{6,20}$/; //regex for NOT ALLOWING SPACES ASDGBFSDAFJS;KDFASDL;KFASD;jh;kljgf;
+	var z = myExp.test(x);
+	return z;
 }
 /**
 * checkLoginForm() stops form submit and displays errors 
