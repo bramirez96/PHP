@@ -8,6 +8,19 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="./scripts/gameGUI.js"></script>
 		<script type="text/javascript" src="./scripts/main.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				if (typeof sessionStorage.user === "undefined" || typeof sessionStorage.num === "undefined") {
+					alert("You don't seem to be logged in!\nYou will now be returned to the login screen.");
+					sessionStorage.clear();
+					window.location.assign("./index.html");
+				}
+			});
+			function updateUser() {//temporary
+				curChar.addXP(50);
+				loadUserModule();
+			}
+		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -21,7 +34,7 @@
 					
 				</div><!-- End .col-1-4 -->
 				<div class="col-3-4" >
-					
+					<button onclick="updateUser()">Add 50XP</button>
 				</div><!-- End .col-3-4 -->
 				
 			</div><!-- End .grid -->

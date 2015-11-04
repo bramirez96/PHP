@@ -163,6 +163,9 @@ footer p {
 	font-style: italic;
 	color: #333;
 }
+.tiny em {
+	font-style: normal;
+}
 .loginInfo {
 	font-style: italic;
 	font-size: 0.9em;
