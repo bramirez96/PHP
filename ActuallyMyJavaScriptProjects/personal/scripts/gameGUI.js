@@ -31,13 +31,35 @@ function makeUser() {
 		makeNewCharacterModule();
 	}
 }
-function loadUserModule(xyz) { //Ajax function that loads user module and sets character info
-	xyz = (typeof xyz !== "undefined") ? xyz : curChar;
+function loadUserModule(user) { //Ajax function that loads user module and sets character info
+	user = (typeof user !== "undefined") ? user : curChar;
 	$("#userModule").load("./modules/userModule.html", function() {//REINITIALLIZE IT HERE
-		var n = xyz;
+		var n = user;
 		window.curChar = new Character(n.name, n.role, n.bStats, n.stats, n.hp, n.mp, n.xp, n.lvl, n.img);
 		setCharacter(curChar);
 	});
+}
+function setEnemy(x) {
+	$("#enemyModule #level").text(x.lvl);
+	$("#enemyModule #name").text(x.name);
+	$("#enemyModule #species").text(x.species);
+	$("#enemyModule #boss").text((x.boss == 1) ? "Boss" : "");
+	var hp    = x.hp[0]; 
+	var maxHp = x.hp[1];
+	$("#enemyModule #hpNow").text(hp);
+	$("#enemyModule #hp").val(hp);
+	$("#enemyModule #hpMax").text(maxHp);
+	$("#enemyModule #hp").attr("max", maxHp);
+	var mp    = x.mp[0];
+	var maxMp = x.mp[1];
+	$("#enemyModule #mpNow").text(mp);
+	$("#enemyModule #mp").val(mp);
+	$("#enemyModule #mpMax").text(maxMp);
+	$("#enemyModule #mp").attr("max", maxMp);
+	$("#enemyModule #atk").text(x.stats.atk);
+	$("#enemyModule #mag").text(x.stats.mag);
+	$("#enemyModule #def").text(x.stats.def);
+	$("#enemyModule #spd").text(x.stats.spd);
 }
 function makeNewCharacterModule() { //
 	$("#userModule").load("./modules/newCharacterModule.html");
@@ -49,32 +71,32 @@ function makeCharacter(name, role) {
 function setCharacter(x) { //Needs to take character instance object as parameter
 	//Use this function to set the stats of the character
 	//Should be pulled from the character object.... if that's a thing
-	$("#usrImg").attr("src", x.img);
-	$("#level").text(x.lvl);
-	$("#name").text(x.name);
-	$("#role").text(x.role);
+	$("#userModule #usrImg").attr("src", x.img);
+	$("#userModule #level").text(x.lvl);
+	$("#userModule #name").text(x.name);
+	$("#userModule #role").text(x.role);
 	var hp    = x.hp[0]; 
 	var maxHp = x.hp[1];
-	$("#hpNow").text(hp);
-	$("#hp").val(hp);
-	$("#hpMax").text(maxHp);
-	$("#hp").attr("max", maxHp);
+	$("#userModule #hpNow").text(hp);
+	$("#userModule #hp").val(hp);
+	$("#userModule #hpMax").text(maxHp);
+	$("#userModule #hp").attr("max", maxHp);
 	var mp    = x.mp[0];
 	var maxMp = x.mp[1];
-	$("#mpNow").text(mp);
-	$("#mp").val(mp);
-	$("#mpMax").text(maxMp);
-	$("#mp").attr("max", maxMp);
+	$("#userModule #mpNow").text(mp);
+	$("#userModule #mp").val(mp);
+	$("#userModule #mpMax").text(maxMp);
+	$("#userModule #mp").attr("max", maxMp);
 	var xp    = (x.lvl == 1) ? x.xp[0] : x.xp[0] - Math.pow(x.lvl, 3); 
 	var maxXp = (x.lvl == 1) ? x.xp[1] : x.xp[1] - Math.pow(x.lvl, 3);
-	$("#xpNow").text(xp);
-	$("#xp").val(xp);
-	$("#xpMax").text(maxXp);
-	$("#xp").attr("max", maxXp);
-	$("#atk").text(x.stats.atk);
-	$("#mag").text(x.stats.mag);
-	$("#def").text(x.stats.def);
-	$("#spd").text(x.stats.spd);
+	$("#userModule #xpNow").text(xp);
+	$("#userModule #xp").val(xp);
+	$("#userModule #xpMax").text(maxXp);
+	$("#userModule #xp").attr("max", maxXp);
+	$("#userModule #atk").text(x.stats.atk);
+	$("#userModule #mag").text(x.stats.mag);
+	$("#userModule #def").text(x.stats.def);
+	$("#userModule #spd").text(x.stats.spd);
 }
 function checkChar(form) {
 	x = form.elements["charName"].value;
@@ -152,13 +174,15 @@ Character.prototype.setStats = function() {
 	this.hp = [this.stats.hp, this.stats.hp];
 	this.mp = [this.stats.mp, this.stats.mp];
 }
-function Enemy(name, species, bStats, img, baseXP, lvl, boss) {
+/**
+ * The following is the code for the Enemy() class and the function to make the enemy
+ */
+function Enemy(name, species, bStats, baseXP, boss, lvl) {
 	this.boss = boss; //1 if it's a boss, 0 if not
 	this.name = name;
 	this.species = species;
 	this.bStats = bStats;
-	this.stats = {atk: 0, mag: 0, def: 0, spd: 0, hp: 0, mp: 0}
-	this.img = img;
+	this.stats = {atk: 0, mag: 0, def: 0, spd: 0, hp: 0, mp: 0};
 	this.baseXP = baseXP;
 	this.setLevel(lvl);
 }
@@ -168,12 +192,97 @@ Enemy.prototype.setLevel = function(lvl) {
 	this.stats.mag = Math.ceil(this.bStats.mag * 2 * this.lvl / 100) + 5; //into a nice for loop
 	this.stats.def = Math.ceil(this.bStats.def * 2 * this.lvl / 100) + 5;
 	this.stats.spd = Math.ceil(this.bStats.spd * 2 * this.lvl / 100) + 5;
-	this.stats.hp  = Math.ceil(this.bStats.hp  * 2 * this.lvl / 100) + 10 + this.lvl;
-	this.stats.mp  = Math.ceil(this.bStats.mp  * 2 * this.lvl / 100) + 10 + this.lvl;
+	this.stats.hp  = Math.ceil(this.bStats.hp  * 2 * this.lvl / 100) + 5 + this.lvl;
+	this.stats.mp  = Math.ceil(this.bStats.mp  * 2 * this.lvl / 100) + 5 + this.lvl;
 	this.hp = [this.stats.hp, this.stats.hp];
 	this.mp = [this.stats.mp, this.stats.mp];
-	this.expYield = (this.boss + 1) * this.baseXP * this.lvl / 7;
+	this.expYield = Math.ceil((this.boss + 1) * this.baseXP * this.lvl / 7);
 }
+function loadEnemyModule(name) {
+	var x = {};
+	$.ajax({
+		type: "GET",
+		url:  "./lib/enemies.xml",
+		dataType: "xml",
+		success: function(xml) {
+			$(xml).find("enemy").filter(function() {
+				return $(this).find("name").text() == name;
+			}).each(function() {
+				x.name    = $(this).find("name").text();
+				x.species = $(this).find("species").text();
+				x.xp      = parseInt($(this).find("xp").text());
+				x.boss    = parseInt($(this).find("boss").text());
+				x.bStats  = {};
+				$(this).find("stats").filter(function() {
+					x.bStats.atk = parseInt($(this).find("atk").text());
+					x.bStats.mag = parseInt($(this).find("mag").text());
+					x.bStats.def = parseInt($(this).find("def").text());
+					x.bStats.spd = parseInt($(this).find("spd").text());
+					x.bStats.hp  = parseInt($(this).find("hp").text());
+					x.bStats.mp  = parseInt($(this).find("mp").text());
+				});
+	window.enemy = new Enemy(x.name, x.species, x.bStats, x.xp, x.boss, curChar.lvl);
+			});
+		}
+	});
+}
+/**
+ * Below is the code for the Battle() class
+ * it takes an enemy name as input and creates the battle around the curChar... sort of
+ */
+function Battle(enemy) {
+	this.loadEnemy(enemy);
+	this.loadBattle();
+}
+Battle.prototype.loadEnemy = function(enemy) {
+	enemy = (typeof enemy !== "undefined") ? enemy : curChar;
+	loadEnemyModule(enemy);
+	$("#enemyModule").load("./modules/enemyModule.html", function() {//REINITIALLIZE IT HERE
+		setEnemy(window.enemy);
+	});
+}
+Battle.prototype.loadBattle = function() {
+	$("#battleModule").load("./modules/battleModule.html", function() {
+		$(this).find("#fight").click(function() {
+			x = $("#move").val();
+			y = $("#move").attr("data-type");
+			curBattle.setDmg(parseInt(x), y);
+			curBattle.doDmg();
+		})
+	})
+};
+Battle.prototype.setDmg = function(power, type) {
+	if (type == "0"){
+		this.usrDmg = Math.ceil((((2*curChar.lvl+10)/250)*curChar.stats.mag/enemy.stats.def*power+2));
+	} else {
+		this.usrDmg = Math.ceil((((2*curChar.lvl+10)/250)*curChar.stats.atk/enemy.stats.def*power+2));
+	}
+	z = Math.floor(Math.random()*3);
+	switch (z) {
+		case 0:
+			this.enDmg = Math.ceil((((2*curChar.lvl+10)/250)*enemy.stats.atk/curChar.stats.def*25));
+			break;
+		case 1:
+			this.enDmg = Math.ceil((((2*curChar.lvl+10)/250)*enemy.stats.mag/curChar.stats.def*25));
+			break;
+		case 2:
+			this.enDmg = Math.ceil((((2*curChar.lvl+10)/250)*enemy.stats.mag/curChar.stats.def*25));
+			break;
+	}
+}
+Battle.prototype.doDmg = function() {
+	curChar.hp[0] = (curChar.hp[0] - this.enDmg < 0) ? 0 : curChar.hp[0] - this.enDmg;
+	enemy.hp[0] = (enemy.hp[0] - this.usrDmg < 0) ? 0 : enemy.hp[0] - this.usrDmg;
+	setCharacter(curChar);
+	setEnemy(enemy);
+	if (curChar.hp[0] <= 0) {
+		alert("You died!");
+	}
+	if (enemy.hp[0] <= 0) {
+		alert("#GotEm");
+	}
+}
+
 
 
 
