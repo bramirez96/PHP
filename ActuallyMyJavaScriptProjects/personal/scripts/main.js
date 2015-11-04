@@ -1,4 +1,8 @@
 //main.js main functions for thingamajig
+function reset() { //For testing only
+	localStorage.clear();
+	sessionStorage.clear();
+}
 var queryString = {}; //set it as global for use bye functions
 function stripURL() {
 	var myExp = /([^?&]+)=([^=&]*)/g; //regex to get query string from the end of a url

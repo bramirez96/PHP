@@ -1,5 +1,4 @@
 //CHANGING THE FILE TO CONTROL ALL GAME FUNCTIONS DEAL WITH IT
-
 function loadChars() {
 	if (localStorage.char) window.z = localStorage.char;
 	else window.z = '[]';
@@ -53,28 +52,29 @@ function setCharacter(x) { //Needs to take character instance object as paramete
 	$("#usrImg").attr("src", x.usrImg);
 	$("#level").text(x.lvl);
 	$("#name").text(x.name);
-	var hp    = x.hp[0].toFixed(2); 
-	var maxHp = x.hp[1].toFixed(2);
+	$("#role").text(x.role);
+	var hp    = x.hp[0]; 
+	var maxHp = x.hp[1];
 	$("#hpNow").text(hp);
 	$("#hp").val(hp);
 	$("#hpMax").text(maxHp);
 	$("#hp").attr("max", maxHp);
-	var mp    = x.mp[0].toFixed(0);
-	var maxMp = x.mp[1].toFixed(0);
+	var mp    = x.mp[0];
+	var maxMp = x.mp[1];
 	$("#mpNow").text(mp);
 	$("#mp").val(mp);
 	$("#mpMax").text(maxMp);
 	$("#mp").attr("max", maxMp);
-	var xp    = x.xp[0]; 
-	var maxXp = x.xp[1];
+	var xp    = x.xp[0] - Math.pow(x.lvl, 3); 
+	var maxXp = x.xp[1] - Math.pow(x.lvl, 3);
 	$("#xpNow").text(xp);
 	$("#xp").val(xp);
 	$("#xpMax").text(maxXp);
 	$("#xp").attr("max", maxXp);
-	$("#atk").text(x.stats.atk.toFixed(2));
-	$("#mag").text(x.stats.mag.toFixed(2));
-	$("#def").text(x.stats.def.toFixed(2));
-	$("#spd").text(x.stats.spd.toFixed(2));
+	$("#atk").text(x.stats.atk);
+	$("#mag").text(x.stats.mag);
+	$("#def").text(x.stats.def);
+	$("#spd").text(x.stats.spd);
 }
 function checkChar(form) {
 	x = form.elements["charName"].value;
@@ -104,16 +104,16 @@ function Character(name, role, base, stats, hp, mp, xp, lvl, img) { //Character 
 	this.xp     = typeof    xp !== "undefined" ?    xp : [0, 8];
 	this.lvl    = typeof   lvl !== "undefined" ?   lvl : 1;
 	this.usrImg = typeof   img !== "undefined" ?   img : "./images/img_frame.png"; //One day: "./images/char_" + this.name + ".png";
-	if (role == "mage" || role == 0) {
-		this.role = 0;
+	if (role.toLowerCase() == "mage") {
+		this.role = "Mage";
 		this.bStats.atk = 60;
 		this.bStats.mag = 80;
 		this.bStats.def = 63;
 		this.bStats.spd = 72;
 		this.bStats.hp  = 80;
 		this.bStats.mp  = 80;
-	} else if (role == "warrior" || role == 1) {
-		this.role = 1;
+	} else if (role.toLowerCase() == "warrior") {
+		this.role = "Warrior";
 		this.bStats.atk = 85;
 		this.bStats.mag = 62;
 		this.bStats.def = 78;
@@ -121,7 +121,7 @@ function Character(name, role, base, stats, hp, mp, xp, lvl, img) { //Character 
 		this.bStats.hp  = 72;
 		this.bStats.mp  = 60;
 	} else {
-		this.role = 2;
+		this.role = "Rogue";
 		this.bStats.atk = 75;
 		this.bStats.mag = 75;
 		this.bStats.def = 55;
@@ -143,12 +143,12 @@ Character.prototype.addXP = function(plus) {
 	}
 }
 Character.prototype.setStats = function() {
-	this.stats.atk = (this.bStats.atk * 2 * this.lvl / 100) + 5; //This could easily be put
-	this.stats.mag = (this.bStats.mag * 2 * this.lvl / 100) + 5; //into a nice for loop
-	this.stats.def = (this.bStats.def * 2 * this.lvl / 100) + 5;
-	this.stats.spd = (this.bStats.spd * 2 * this.lvl / 100) + 5;
-	this.stats.hp  = (this.bStats.hp  * 2 * this.lvl / 100) + 10 + this.lvl;
-	this.stats.mp  = (this.bStats.mp  * 2 * this.lvl / 100) + 10 + this.lvl;
+	this.stats.atk = Math.ceil(this.bStats.atk * 2 * this.lvl / 100) + 5; //This could easily be put
+	this.stats.mag = Math.ceil(this.bStats.mag * 2 * this.lvl / 100) + 5; //into a nice for loop
+	this.stats.def = Math.ceil(this.bStats.def * 2 * this.lvl / 100) + 5;
+	this.stats.spd = Math.ceil(this.bStats.spd * 2 * this.lvl / 100) + 5;
+	this.stats.hp  = Math.ceil(this.bStats.hp  * 2 * this.lvl / 100) + 10 + this.lvl;
+	this.stats.mp  = Math.ceil(this.bStats.mp  * 2 * this.lvl / 100) + 10 + this.lvl;
 	this.hp = [this.stats.hp, this.stats.hp];
 	this.mp = [this.stats.mp, this.stats.mp];
 }
