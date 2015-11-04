@@ -14,7 +14,11 @@
 					alert("You don't seem to be logged in!\nYou will now be returned to the login screen.");
 					sessionStorage.clear();
 					window.location.assign("./index.html");
-				}
+				};
+				$("#startButton").click(function() {
+					x = $("#enemyList").val();
+					window.curBattle = new Battle(x);
+				});
 			});
 		</script>
 	</head>
@@ -29,8 +33,22 @@
 				<div class="col-1-4" id="userModule">
 					
 				</div><!-- End .col-1-4 -->
-				<div class="col-1-2" id="battleModule">
+				<div class="col-1-2">
+					<div class="grid">
+						<div class="col-1-1">
+							<select id="enemyList">
+								<option value="Goblin King">Goblin King (Boss)</option>
+								<option value="Goblin Knight">Goblin Knight</option>
+								<option value="Goblin Mage">Goblin Mage</option>
+								<option value="Goblin Squire">Goblin Squire</option>
+								<option value="Spectral Wraith">Spectral Wraith</option>
+							</select>
+							<button id="startButton">Start!</button>
+						</div>
+					</div>
+					<div id="battleModule">
 					
+					</div>
 				</div><!-- End .col-3-4 -->
 				<div class="col-1-4" id="enemyModule">
 				

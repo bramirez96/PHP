@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <enemies>
+	<!--Goblins-->
 	<enemy>
 		<name>Goblin King</name>
 		<species>Goblin</species>
@@ -11,16 +12,16 @@
 			<hp>70</hp>
 			<mp>30</mp>
 		</stats>
-		<xp>200</xp>
+		<xp>100</xp>
 		<boss>1</boss>
 	</enemy>
 	<enemy>
 		<name>Goblin Knight</name>
 		<species>Goblin</species>
 		<stats>
-			<atk>70</atk>
-			<mag>70</mag>
-			<def>70</def>
+			<atk>50</atk>
+			<mag>50</mag>
+			<def>50</def>
 			<spd>50</spd>
 			<hp>60</hp>
 			<mp>50</mp>
@@ -28,6 +29,35 @@
 		<xp>75</xp>
 		<boss>0</boss>
 	</enemy>
+	<enemy>
+		<name>Goblin Squire</name>
+		<species>Goblin</species>
+		<stats>
+			<atk>50</atk>
+			<mag>30</mag>
+			<def>65</def>
+			<spd>90</spd>
+			<hp>50</hp>
+			<mp>25</mp>
+		</stats>
+		<xp>40</xp>
+		<boss>0</boss>
+	</enemy>
+	<enemy>
+		<name>Goblin Mage</name>
+		<species>Goblin</species>
+		<stats>
+			<atk>60</atk>
+			<mag>80</mag>
+			<def>40</def>
+			<spd>65</spd>
+			<hp>70</hp>
+			<mp>80</mp>
+		</stats>
+		<xp>60</xp>
+		<boss>0</boss>
+	</enemy>
+	<!--Undead-->
 	<enemy>
 		<name>Spectral Wraith</name>
 		<species>Undead</species>

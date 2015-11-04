@@ -277,9 +277,13 @@ Battle.prototype.doDmg = function() {
 	setEnemy(enemy);
 	if (curChar.hp[0] <= 0) {
 		alert("You died!");
+		window.location.assign("./home.html");
 	}
 	if (enemy.hp[0] <= 0) {
 		alert("#GotEm");
+		curChar.addXP(parseInt(enemy.expYield));
+		setCharacter(curChar);
+		window.enemy = {};
 	}
 }
 
