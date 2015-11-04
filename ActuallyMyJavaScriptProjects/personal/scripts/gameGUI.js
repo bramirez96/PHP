@@ -35,7 +35,7 @@ function loadUserModule(xyz) { //Ajax function that loads user module and sets c
 	xyz = (typeof xyz !== "undefined") ? xyz : curChar;
 	$("#userModule").load("./modules/userModule.html", function() {//REINITIALLIZE IT HERE
 		var n = xyz;
-		window.curChar = new Character(n.name, n.role, n.bStats, n.stats, n.hp, n.mp, n.xp, n.lvl, n.usrImg);
+		window.curChar = new Character(n.name, n.role, n.bStats, n.stats, n.hp, n.mp, n.xp, n.lvl, n.img);
 		setCharacter(curChar);
 	});
 }
@@ -49,7 +49,7 @@ function makeCharacter(name, role) {
 function setCharacter(x) { //Needs to take character instance object as parameter
 	//Use this function to set the stats of the character
 	//Should be pulled from the character object.... if that's a thing
-	$("#usrImg").attr("src", x.usrImg);
+	$("#usrImg").attr("src", x.img);
 	$("#level").text(x.lvl);
 	$("#name").text(x.name);
 	$("#role").text(x.role);
@@ -65,8 +65,8 @@ function setCharacter(x) { //Needs to take character instance object as paramete
 	$("#mp").val(mp);
 	$("#mpMax").text(maxMp);
 	$("#mp").attr("max", maxMp);
-	var xp    = x.xp[0] - Math.pow(x.lvl, 3); 
-	var maxXp = x.xp[1] - Math.pow(x.lvl, 3);
+	var xp    = (x.lvl == 1) ? x.xp[0] : x.xp[0] - Math.pow(x.lvl, 3); 
+	var maxXp = (x.lvl == 1) ? x.xp[1] : x.xp[1] - Math.pow(x.lvl, 3);
 	$("#xpNow").text(xp);
 	$("#xp").val(xp);
 	$("#xpMax").text(maxXp);
@@ -103,7 +103,7 @@ function Character(name, role, base, stats, hp, mp, xp, lvl, img) { //Character 
 	this.mp     = typeof    mp !== "undefined" ?    mp : [0, 0];
 	this.xp     = typeof    xp !== "undefined" ?    xp : [0, 8];
 	this.lvl    = typeof   lvl !== "undefined" ?   lvl : 1;
-	this.usrImg = typeof   img !== "undefined" ?   img : "./images/img_frame.png"; //One day: "./images/char_" + this.name + ".png";
+	this.img    = typeof   img !== "undefined" ?   img : "./images/img_frame.png"; //One day: "./images/char_" + this.name + ".png";
 	if (role.toLowerCase() == "mage") {
 		this.role = "Mage";
 		this.bStats.atk = 60;
@@ -152,7 +152,28 @@ Character.prototype.setStats = function() {
 	this.hp = [this.stats.hp, this.stats.hp];
 	this.mp = [this.stats.mp, this.stats.mp];
 }
-
+function Enemy(name, species, bStats, img, baseXP, lvl, boss) {
+	this.boss = boss; //1 if it's a boss, 0 if not
+	this.name = name;
+	this.species = species;
+	this.bStats = bStats;
+	this.stats = {atk: 0, mag: 0, def: 0, spd: 0, hp: 0, mp: 0}
+	this.img = img;
+	this.baseXP = baseXP;
+	this.setLevel(lvl);
+}
+Enemy.prototype.setLevel = function(lvl) {
+	this.lvl = lvl;
+	this.stats.atk = Math.ceil(this.bStats.atk * 2 * this.lvl / 100) + 5; //This could easily be put
+	this.stats.mag = Math.ceil(this.bStats.mag * 2 * this.lvl / 100) + 5; //into a nice for loop
+	this.stats.def = Math.ceil(this.bStats.def * 2 * this.lvl / 100) + 5;
+	this.stats.spd = Math.ceil(this.bStats.spd * 2 * this.lvl / 100) + 5;
+	this.stats.hp  = Math.ceil(this.bStats.hp  * 2 * this.lvl / 100) + 10 + this.lvl;
+	this.stats.mp  = Math.ceil(this.bStats.mp  * 2 * this.lvl / 100) + 10 + this.lvl;
+	this.hp = [this.stats.hp, this.stats.hp];
+	this.mp = [this.stats.mp, this.stats.mp];
+	this.expYield = (this.boss + 1) * this.baseXP * this.lvl / 7;
+}
 
 
 
