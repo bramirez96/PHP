@@ -3,7 +3,7 @@ function reset() { //For testing only
 	localStorage.clear();
 	sessionStorage.clear();
 }
-var queryString = {}; //set it as global for use bye functions
+var queryString = {}; //set it as global for use by functions
 function stripURL() {
 	var myExp = /([^?&]+)=([^=&]*)/g; //regex to get query string from the end of a url
 	var url = location.href;
@@ -14,10 +14,6 @@ function stripURL() {
 			queryString[x[1]] = x[2];
 		}
 	} while (x);
-	/*location.href.replace(
-		new RegExp("([^?&]+)=([^=&]*)", "g"),
-		function(x, y, z) { queryString[y] = z; }
-	);*/
 };
 /**
 * loadUsers() loads stored JSON strings and parses them into objects
@@ -26,7 +22,7 @@ function stripURL() {
 function loadUsers() {
 	if (localStorage.user) var z = localStorage.user;
 	else z = '{"keys":[]}';
-	usr = JSON.parse(z);
+	window.usr = JSON.parse(z);
 }
 function logOut() {
 	sessionStorage.clear();

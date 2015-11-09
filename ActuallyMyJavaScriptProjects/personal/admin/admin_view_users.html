@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Admin Home</title>
+		<link rel="stylesheet" type="text/css" href="../styles/main.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript" src="../scripts/main.js"></script>
+		<script type="text/javascript" src="../scripts/gameGUI.js"></script>
+		<script type="text/javascript" src="./scripts/admin.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				localStorage.user = '{"keys":[0,1,2,3,4,5,6,7,8,9,10,11,12],"tacos":{"pass":"tacos","key":0},"arana":{"pass":"arana","key":1},"balogna":{"pass":"balogna","key":2},"shit":{"pass":"shit","key":3},"jajaja":{"pass":"jajaja","key":4},"blhe":{"pass":"hah","key":5},"tara":{"pass":"ththt","key":6},"asldjfkshdf%60%60":{"pass":"yui","key":7},"asdads":{"pass":"fhf","key":8},"tutut":{"pass":"tut","key":9},"asldkjn":{"pass":"tututt","key":10},"asd":{"pass":"asd","key":11},"asdf":{"pass":"asdasd","key":12}}'
+				loadUsers();
+				makeUserTable();
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<header id="pageHead">
+				<div id="titleText">
+					<div id="title">Admin Page for Game Title</div>
+					<nav>
+						<ul>
+							<li><a href="./admin_home.html">Admin Home</a></li>
+							<li><a href="./admin_view_users.html">View Users</a></li>
+							<li><a href="../index.html">Log Out</a></li> <!-- Will later change url after testing completes -->
+						</ul>
+					</nav>
+				</div>
+			</header>
+			
+			<div class="grid">
+				<div class="col-1-1">
+					<table id="userTable">
+					
+					</table>
+				</div><!-- End .col-1-1 -->
+			</div> <!-- End .grid -->
+		</div><!-- End #container -->
+	</body>
+</html>

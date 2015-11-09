@@ -6,25 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="./scripts/main.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				stripURL();
-				loadUsers();
-				usr[queryString["user"]] = {"pass": queryString["pass"], "key": usr.keys.length};
-				usr.keys.push(usr.keys.length);
-				$(window).load(function() {
-					str = "<p>You have successfully registered the following account: <br /><br />"+
-						"Username: <span class='loginInfo'>" + queryString["user"] + "</span><br />"+
-						"Password: <span class='loginInfo'>" + queryString["pass"] + "</span><br /><br />"+
-						"<span class='tiny'><a href='./index.html' title='Click Here'>Click here</a> to login.</span></p>";
-					document.getElementById("success").innerHTML = str;
-					});
-			});
-			$(window).unload(function() {
-				x = JSON.stringify(usr);
-				localStorage.user = x;
-			});
-		</script>
+		<script type="text/javascript" src="./admin/scripts/admin.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -44,12 +26,23 @@
 			</header>
 			
 			<div class="grid">
-				<div class="col-2-3" id="success">
-					
-				</div><!-- End col-2-3 -->
-				<div class="col-1-3">
-					test
+				<div class="col-1-3" id="loginModule">
+					<form method="post" onsubmit="return checkAdminForm(this)" action="./admin/admin_home.html">
+						<p>Log In As Admin</p>
+						<br />
+						<input type="text" name="user" placeholder="Username"></input>
+						<div id="userError" class="tiny" style="display:none;">Incorrect username!</div>
+						<br />
+						<input type="password" name="pass" placeholder="Password"></input>
+						<div id="passError" class="tiny" style="display:none;">Incorrect password!</div>
+						<br />
+						<input type="submit" value="Log In"></input>
+					</form>
+					<br />
 				</div><!-- End col-1-3 -->
+				<div class="col-2-3">
+					test
+				</div><!-- End col-2-3 -->
 			</div>
 			
 		</div><!-- End of .container -->	
