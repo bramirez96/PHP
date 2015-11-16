@@ -1,0 +1,16 @@
+Create a survey link
+Send link to new user page and put survey on their account
+look at results
+tajke surveys
+view survey list
+Log in and display form, put info in database
+
+
+MAKE A TABLE OF CONTENTS IN YOUR LITTLE SITE THINGY
+	Homework, Book Scripts, Projects
+
+
+
+User - Question
+User - Survey
+Survey - Question

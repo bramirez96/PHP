@@ -11,12 +11,14 @@
 				<header class="content">
 					<a href="./index.php" title="Home" id="logo">Logo</a>
 					<div id="notLogo">
-						<h1>Title of Site</h1>
+						<h1>SurveyWhiz</h1>
 						<nav>
 							<ul>
-								<li><a href="#">Home</a></li>
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Contact</a></li>
+								<li><a href="./index.php">Home</a></li>
+								<li><a href="#">Create Survey</a></li>
+								<li><a href="#">View Users</a></li>
+								<li><a href="#">Log Out</a></li>
+								<li class="float-right">Logged in as: <?php echo $user; ?></li>
 							</ul>
 						</nav>
 					</div> <!-- End #notLogo -->

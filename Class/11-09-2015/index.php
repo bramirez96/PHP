@@ -35,7 +35,7 @@ function redirect_user($page = "./index.php") {
 	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 	//Then trim it
 }
-function check_login($dbc, $emaiil = '', $pass = '') {
+function check_login($dbc, $email = '', $pass = '') {
 	if(empty($email)) {
 		$errors[] = "You forgot to enter email";
 	}
