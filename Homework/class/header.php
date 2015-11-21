@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title><?php echo $page_title; ?></title>
+		<title><?php echo $page_title . " - SurveyWhiz"; ?></title>
 		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
 	</head>
 	<body>

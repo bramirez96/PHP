@@ -60,8 +60,69 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 
 
 
-$content['login'] = "Insert login shit here";
-$content['module1'] = "<a href='./signup.php'>Sign Up</a>";
+$content['login'] = <<<_END
+<form method="post" action="./signup.php">
+	<input type="hidden" name="posted" value="TRUE" />
+	<h1>Sign Up:</h1>
+	<table id="login">
+		<thead style="display: {$error['display']}">
+			<tr>
+				<td colspan="2" class="red">You didn&rsquo;t input valid form data!</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>First Name:</td>
+				<td>
+					<input type="text" name="fname" value="{$content['fname']}" />
+					<span class="red">{$error['fname']}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Last Name:</td>
+				<td>
+					<input type="text" name="lname" value="{$content['lname']}" />
+					<span class="red">{$error['lname']}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Username:</td>
+				<td>
+					<input type="text" name="uname" value="{$content['uname']}" />
+					<span class="red">{$error['uname']}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td>
+					<input type="text" name="email" value="{$content['email']}" />
+					<span class="red">{$error['email']}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td>
+					<input type="password" name="pass" />
+					<span class="red">{$error['pass']}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Confirm Password:</td>
+				<td>
+					<input type="password" name="cpass" />
+					<span class="red">{$error['cpass']}</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+_END;
+$content['module1'] = "Whoa";
 $content['module3'] = "<p>Another paragraph</p>";
 include("./header.php");
 //Put the inside of the #container tag in the following thingy
