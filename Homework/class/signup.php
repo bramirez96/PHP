@@ -11,8 +11,43 @@ define("DB_NAME", "brandon");
 $page_title = "Sign Up";
 $user = "Guest";
 
-if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
-	//!Insert form validation here
+function clean_str(&$x) {
+	$x = filter_var($x, FILTER_SANITIZE_STRING);
+	echo $x;
+	$x = preg_replace("/[^a-zA-Z0-9'\-]/", '', $x);
+	echo $x;
+}
+if (!empty($_POST)) { //Run this if form was submitted
+	include('./db_connect.php');
+	if (isset($_POST['email'])) {
+		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+		$_POST['email'] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+		$sql = "SELECT email FROM brandon.entity_users WHERE email = '{$_POST['email']}'";
+		$response = $connect->query($sql);
+		if ($response->num_rows != 0) { //Do this if email is taken
+			$error['extras'] = "<br />Email already in use!";
+			$_POST['email'] = "";
+		} else {
+			$error['extras'] = "";
+		}
+	}
+	if (!empty($_POST['uname'])) {
+		clean_str($_POST['uname']);
+		$sql = "SELECT username FROM brandon.entity_users WHERE username = '{$_POST['uname']}'";
+		$response = $connect->query($sql);
+		if ($response->num_rows != 0) {
+			$error['extras'] .= "<br />Username already in use!";
+			$_POST['uname'] = "";
+		}
+	}
+	if (!empty($_POST['fname'])) clean_str($_POST['fname']);
+	if (!empty($_POST['lname'])) clean_str($_POST['lname']);
+	if (!empty($_POST['pass']) && !empty($_POST['cpass'])) {
+		if ($_POST['pass'] != $_POST['cpass']) {
+			$_POST['cpass'] = "";
+			$error['extras'] .= "<br />Passwords don't match!";
+		}
+	}
 	$error['display'] = "table-header-group";
 	foreach ($_POST as $key => $value) {
 		if (empty($value)) {
@@ -20,23 +55,22 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 			$content[$key] = "";
 		} else {
 			$error[$key] = "";
-			$content[$key] = $value;
+			$content[$key] = trim($value);
 			if (!isset($content['count'])) $content['count'] = 1;
 			else $content['count'] += 1;
 		}
 	}
 	if ($content['count'] === 7) {
 		//DATABASE SHIT BECAUSE THEY FINALLY FUCKING FILLED IT OUT RIGHT
-		include('./db_connect.php');
 		$sql = "INSERT INTO entity_users (firstname, lastname, username, email, password) " .
 			"VALUES ('{$content['fname']}', '{$content['lname']}', '{$content['uname']}', '{$content['email']}', SHA1('{$content['pass']}'))";
 		if (!$result = $connect->query($sql)) {
-			die("Query error: " . $connect->error);
+			echo "Query error: " . $connect->error;
 		} else {
-			die("You did it");
+			echo "You did it";
 		}
 	}
-} else {
+} else { //If post is empty
 	$content = [
 		"fname" => "",
 		"lname" => "",
@@ -50,7 +84,8 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 		"email" => "",
 		"pass"  => "",
 		"cpass" => "",
-		"display" => "none"
+		"display" => "none",
+		"extras" => ""
 	];
 }
 
@@ -67,7 +102,7 @@ $content['login'] = <<<_END
 	<table id="login">
 		<thead style="display: {$error['display']}">
 			<tr>
-				<td colspan="2" class="red">You didn&rsquo;t input valid form data!</td>
+				<td colspan="2" class="red">You didn&rsquo;t input valid form data! {$error['extras']}</td>
 			</tr>
 		</thead>
 		<tbody>

@@ -8,7 +8,7 @@ define("DB_PASS", "");
 define("DB_NAME", "brandon");
 
 //
-$page_title = "Sign Up";
+$page_title = "Home";
 $user = "Guest";
 
 if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
