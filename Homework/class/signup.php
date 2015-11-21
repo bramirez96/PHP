@@ -11,15 +11,14 @@ define("DB_NAME", "brandon");
 $page_title = "Sign Up";
 $user = "Guest";
 
-function clean_str(&$x) {
-	$x = filter_var($x, FILTER_SANITIZE_STRING);
-	echo $x;
-	$x = preg_replace("/[^a-zA-Z0-9'\-]/", '', $x);
-	echo $x;
+function clean_str(&$x) { //Use this on all the names
+	$replace = array(" " => "", "/" => "", "\\" => "", ";" => "", "&#39", "'");
+	$x = strtr($x, $replace);
+	$x = filter_var($x, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 }
 if (!empty($_POST)) { //Run this if form was submitted
 	include('./db_connect.php');
-	if (isset($_POST['email'])) {
+	if (!empty($_POST['email'])) {
 		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		$_POST['email'] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 		$sql = "SELECT email FROM brandon.entity_users WHERE email = '{$_POST['email']}'";
@@ -62,15 +61,18 @@ if (!empty($_POST)) { //Run this if form was submitted
 	}
 	if ($content['count'] === 7) {
 		//DATABASE SHIT BECAUSE THEY FINALLY FUCKING FILLED IT OUT RIGHT
+		foreach ($content as $key => $value) {
+			$content[$key] = mysql_real_escape_string($value);
+		}
 		$sql = "INSERT INTO entity_users (firstname, lastname, username, email, password) " .
 			"VALUES ('{$content['fname']}', '{$content['lname']}', '{$content['uname']}', '{$content['email']}', SHA1('{$content['pass']}'))";
 		if (!$result = $connect->query($sql)) {
 			echo "Query error: " . $connect->error;
-		} else {
-			echo "You did it";
 		}
+		$_POST = [];
 	}
-} else { //If post is empty
+}
+if (empty($_POST)) { //If post is empty, or if data was inputted to database and post was reset
 	$content = [
 		"fname" => "",
 		"lname" => "",
