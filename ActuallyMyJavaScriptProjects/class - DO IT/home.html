@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Home</title>
+		<link rel="stylesheet" type="text/css" href="./styles/main.css" />
+		<link rel="stylesheet" type="text/css" href="./styles/gameGUI.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript" src="./scripts/gameGUI.js"></script>
+		<script type="text/javascript" src="./scripts/main.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				if (typeof sessionStorage.user === "undefined" || typeof sessionStorage.num === "undefined") {
+					alert("You don't seem to be logged in!\nYou will now be returned to the login screen.");
+					sessionStorage.clear();
+					window.location.assign("./index.html");
+				};
+				$("#startButton").click(function() {
+					x = $("#enemyList").val();
+					window.curBattle = new Battle(x);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<header id="headModule">
+
+			</header>
+			
+			<div class="grid">
+				
+				<div class="col-1-4" id="userModule">
+					
+				</div><!-- End .col-1-4 -->
+				<div class="col-1-2">
+					<div class="grid">
+						<div class="col-1-1">
+							<select id="enemyList">
+								<option value="Goblin King">Goblin King (Boss)</option>
+								<option value="Goblin Knight">Goblin Knight</option>
+								<option value="Goblin Mage">Goblin Mage</option>
+								<option value="Goblin Squire">Goblin Squire</option>
+								<option value="Spectral Wraith">Spectral Wraith</option>
+							</select>
+							<button id="startButton">Start!</button>
+						</div>
+					</div>
+					<div id="battleModule">
+					
+					</div>
+				</div><!-- End .col-3-4 -->
+				<div class="col-1-4" id="enemyModule">
+				
+				</div>
+				
+			</div><!-- End .grid -->
+			
+		</div><!-- End of .container -->	
+		<footer>
+			<p>
+				Copyright or something
+			</p>
+		</footer>
+	</body>
+</html>

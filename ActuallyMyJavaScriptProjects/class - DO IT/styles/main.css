@@ -67,9 +67,6 @@ body {
 	font-size: 16px;
 }
 /* !Header */
-header {
-	padding-top: 15px;
-}
 header:after {
 	display: table;
 	clear: both;
@@ -88,33 +85,6 @@ header:after {
 	float: left;
 	margin-left: 15px;
 	clear: right;
-}
-#userModule {
-	float: right;
-	display: inline-block;
-	width: 25%;
-	text-align: left;
-}
-#userModule #userIcon {
-	width: 100px;
-	height: 100px;
-	background: url(../images/img_frame.png);
-	background-size: 100px 100px;
-	border: 1px solid #000;
-	float: left;
-}
-#userModule #userStuff {
-	float: left;
-	margin-left: 5px;
-}
-#userModule input {
-	width: 50%;
-}
-#userModule form p {
-	margin-bottom: 10px;
-}
-#userModule form + p {
-	margin-top: 10px;
 }
 /* !Set Up The Grid Layout */
 
@@ -193,12 +163,15 @@ footer p {
 	font-style: italic;
 	color: #333;
 }
+.tiny em {
+	font-style: normal;
+}
 .loginInfo {
 	font-style: italic;
 	font-size: 0.9em;
 	color: #333;
 }
-#userModule > div.botSpace {
+#userModule > div.botSpace, #enemyModule > div.botSpace{
 	padding-bottom: 10px;
 }
 

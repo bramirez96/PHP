@@ -1,0 +1,170 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+em {
+	font-style: italic;
+}
+*, *:before, *:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+/* Sticky Footer */
+html, body {
+	height: 100%;
+}
+#container { /* Try clearfixing your container if layout isn't working */
+	margin: 0 auto;
+	min-height: 100%;
+	margin-bottom: -50px;
+}
+footer {
+	height: 50px;
+}
+footer p {
+	line-height: 50px;
+	font-size: .8em;
+	font-style: italic;
+	color: #aaa;
+	text-align: center;
+}
+/* Max-Width of 1024 for site content */
+#header-wrap, #footer-wrap {
+	background-color: #333;
+	color: #ccc;
+	width: 100%;
+}
+.content {
+	max-width: 1024px;
+	margin: 0 auto;
+}
+/* Grid Stuff */
+.clearfix:after { /* Gotta clearfix every grid */
+	display: table;
+	clear: both;
+	content: '';
+}
+.grid {
+	width: 100%;
+}
+[class*='col-'] {
+	float: left;
+	padding: 10px 15px 10px 0;
+}
+[class*='col-']:last-of-type {
+	padding-right: 0;
+}
+.col-1-2 {
+	width: 50%;
+}
+.col-1-4 {
+	width: 25%;
+}
+/* Header */
+header {
+	height: 100px;
+}
+header #logo {
+	background: url("../images/img_frame.png");
+	background-size: 100px 100px;
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	text-indent: -9999px;
+	margin-right: 10px;
+	float: left;
+}
+#notLogo h1 {
+	height: 75px;
+	font-size: 50px;
+	margin-bottom: 0;
+}
+#notLogo nav {
+	height: 25px;
+}
+header nav a {
+	float: left;
+	text-decoration: none;
+	color: #aaa;
+	margin-right: 20px;
+}
+header nav a:hover {
+	border-bottom: 1px solid #fff;
+	color: #fff;
+}
+
+
+/* Arbitrary Stylings */
+.float-right {
+	float: right;
+}
+#login {
+	width: 100%;
+}
+#login td {
+	width: 25%;
+}
+#login td:last-child {
+	width:75%;
+}
+.center {
+	text-align: center;
+}
+.red {
+	color: #F00;
+}
+h1 {
+	font-size: 2.5em;
+	margin-bottom: 10px;
+}
+
+
+
+
+
+
