@@ -15,6 +15,8 @@ $user = "Guest";
 if (isset($_SESSION['user'])) {
 	$_POST = [];
 	$user = $_SESSION['user'];
+} else {
+	header('Location: ./index.php');
 }
 if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 	//FORM VALIDATION
@@ -32,7 +34,7 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 		}
 	}
 	if ($content['count'] === 2) {
-		$sql = "SELECT password, username, firstname, email FROM brandon.entity_users WHERE email = '{$content['email']}'";
+		$sql = "SELECT password, username, firstname FROM brandon.entity_users WHERE email = '{$content['email']}'";
 		if ($response = $connect->query($sql)) {
 			if ($response->num_rows != 0) {
 				while ($row = $response->fetch_assoc()) {
@@ -40,7 +42,6 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 					if ($row['password'] === sha1($content['pass'])) {
 						$_SESSION['user'] = $row['username'];
 						$_SESSION['name'] = $row['firstname'];
-						$_SESSION['email'] = $row['email'];
 					}
 				}
 				$response->free();
@@ -62,59 +63,50 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 
 
 
-if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
-	$content['login'] = <<<_END
-<form method="post" action="./index.php">
-	<h1>Log In:</h1>
-	<table id="login">
-		<tbody>
-			<tr>
-				<td>Email:</td>
-				<td>
-					<input type="text" name="email" value="{$content['email']}" />
-					<span class="red">{$error['email']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td>
-					<input type="password" name="pass" />
-					<span class="red">{$error['pass']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" />
-				</td>
-			</tr>
-		</tbody>
-	</table>
+$content['login'] = <<<_END
+<h1>New Survey:</h1>
+<form method="post" action="./check_survey.php" onsubmit="this.num_q.value = Question.count">
+	<input id="keep_count" type="hidden" value="0" name="num_q" />
+	<div class="grid clearfix underline_box">
+		<div class="col-1-5">
+			<p>
+				Survey Name:
+			</p>
+		</div>
+		<div class="col-4-5">
+			<p>
+				<input type="text" name="title" />
+			</p>
+		</div>
+	</div>
+	<div class="grid clearfix">
+		<div id="questions" class="col-1-1">
+		
+		</div>
+	</div>
+	<div class="grid clearfix">
+		<div class="col-1-1">
+			<button type="button" onclick="q.push(new Question())">+Add Question</button>
+		</div>
+	</div>
+	<div class="grid clearfix">
+		<div class="col-1-1">
+			<p>
+				<input type="submit" />
+			</p>
+		</div>
+	</div>
 </form>
 _END;
-} else { //If user is logged in
-	$content['login'] = <<<_END
-<h1>Welcome, {$_SESSION['name']}!</h1>
-<p>
-	A paragraph.
-</p>
-_END;
-}
-$content['module1'] = "<a href='./signup.php'>Sign Up</a>";
-$content['module3'] = "<p>Another paragraph</p>";
 include("./header.php");
 //Put the inside of the #container tag in the following thingy
 echo <<<_END
 	<div class="grid clearfix">
-		<div class="col-1-4">
-			{$content['module1']}
-		</div>
-		<div class="col-1-2">
+		<div class="col-1-1">
 			{$content['login']}
 		</div>
-		<div class="col-1-4">
-			{$content['module3']}
-		</div>
 	</div>
+	<script type="text/javascript" src="./scripts/new_survey.js"></script>
 _END;
 include("./footer.php");
 ?>

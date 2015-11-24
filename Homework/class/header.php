@@ -20,7 +20,7 @@ if (isset($_SESSION['user'])) {
 						<nav>
 							<ul>
 								<li><a href="./index.php">Home</a></li>
-								<li><a href="#">Create Survey</a></li>
+								<li><a href="./new_survey.php">Create Survey</a></li>
 								<li><a href="#">View Users</a></li>
 								<li><a href="./logout.php">Log Out</a></li>
 								<li class="float-right">Logged in as: <?php echo $user; ?></li>

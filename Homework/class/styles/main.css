@@ -62,6 +62,7 @@ html, body {
 	margin: 0 auto;
 	min-height: 100%;
 	margin-bottom: -50px;
+	padding-bottom: 50px;
 }
 footer {
 	height: 50px;
@@ -104,6 +105,24 @@ footer p {
 }
 .col-1-4 {
 	width: 25%;
+}
+.col-3-4 {
+	width: 75%;
+}
+.col-1-1 {
+	width: 100%;
+}
+.col-1-5 {
+	width: 20%;
+}
+.col-4-5 {
+	width: 80%;
+}
+.col-1-3 {
+	width: 33.33%;
+}
+.col-2-3 {
+	width: 66.66%;
 }
 /* Header */
 header {
@@ -155,6 +174,9 @@ header nav a:hover {
 .center {
 	text-align: center;
 }
+.left {
+	text-align: left;
+}
 .red {
 	color: #F00;
 }
@@ -162,8 +184,12 @@ h1 {
 	font-size: 2.5em;
 	margin-bottom: 10px;
 }
-
-
+.underline_box {
+	border-bottom: 1px solid #000;
+}
+.underline_box:last-of-type {
+	border-bottom-width: 0;
+}
 
 
 
