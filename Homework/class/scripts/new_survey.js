@@ -10,6 +10,8 @@ function Question(x) {
 			"<div class=\"col-1-5\">Question " + this.qnum + ":</div>" +
 			"<div class=\"col-4-5\">" +
 				"<input type='text' name='q" + this.qnum + "' />" +
+				" <label><input type=\"radio\" name=\"t" + this.qnum + "_0\" value=\"1\" checked>Radio Button </label>" +
+				" <label><input type=\"radio\" name=\"t" + this.qnum + "_0\" value=\"2\">Checkbox </label>" +
 			"</div>" +
 		"</div>" +
 		"<div class=\"grid clearfix underline_box\">" +
@@ -40,6 +42,8 @@ Question.prototype.addAnswer = function() {
 			"</div>" +
 			"<div class=\"col-3-4\">" +
 				"<input type=\"text\" name=\"a" + this.qnum + "_" + this.answers + "\" />"+
+				"<input type=\"hidden\" name=\"t" + this.qnum + "_" + this.answers + "\" value=\"1\"> " +
+				" <label><input type=\"checkbox\" name=\"t" + this.qnum + "_" + this.answers + "\" value=\"2\">Input Field</label> " +
 			"</div>" +
 		"</div>");
 }

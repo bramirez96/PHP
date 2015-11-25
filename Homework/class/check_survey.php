@@ -18,31 +18,30 @@ function getAnsArray($q) {
     }
     return $x;
 }
+function getTypeArray($q) {
+	$x = preg_grep_keys("/t$q\_\d/", $_POST);
+	unset($x["t".$q."_0"]);
+	return $x;
+}
 for ($i = 1; $i <= $_POST['num_q']; $i++) {
 	$survey[] = [
-		'question' => addslashes($_POST['q'.$i]),
-		'answer' => getAnsArray($i)
+		'question'  => addslashes($_POST['q'.$i]),
+		'type'      => $_POST['t' . $i . '_0'],
+		'answer'    => getAnsArray($i),
+		'ans_types' => getTypeArray($i)
 	];
 }
 
 //Eventually the below code will append statements to an sql query
-echo $survey[0] . "<br />";
-for ($i = 1; $i < count($survey); $i++) {
-	echo "___".$survey[$i]['question'];
-	foreach ($survey[$i]['answer'] as $value) {
-		echo "<br />______" . $value;
-	}
-	echo "<br />";
-}
 $sql   = ["START TRANSACTION;"];
 $sql[] = "INSERT INTO `entity_surveys` (`title`,`open`,`close`) VALUES ('{$survey[0]}',CURDATE(),CURDATE());";
 $sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_SURVEY_ID;";
 for ($i = 1; $i < count($survey); $i++) {
-	$sql[] = "INSERT INTO brandon.entity_questions (question, type_id) VALUES ('{$survey[$i]['question']}', '1');";
+	$sql[] = "INSERT INTO brandon.entity_questions (question, q_num, type_id) VALUES ('{$survey[$i]['question']}', '$i', '{$survey[$i]['type']}');";
 	$sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_QUESTION_ID;";
 	$sql[] = "INSERT INTO brandon.xref_surveys_questions (survey_id, question_id) VALUES (@CUR_SURVEY_ID, @CUR_QUESTION_ID);";
-	foreach ($survey[$i]['answer'] as $value) {
-		$sql[] = "INSERT INTO brandon.entity_answers (answer) VALUES ('$value');";
+	for ($c = 1; $c <= count($survey[$i]['answer']); $c++) {
+		$sql[] = "INSERT INTO brandon.entity_answers (answer, a_num, type_id) VALUES ('{$survey[$i]['answer']['a'.$i.'_'.$c]}', '$c', '{$survey[$i]['ans_types']['t'.$i.'_'.$c]}');";
 		$sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_ANSWER_ID;";
 		$sql[] = "INSERT INTO brandon.xref_questions_answers (question_id, answer_id) VALUES (@CUR_QUESTION_ID, @CUR_ANSWER_ID);";
 	}
@@ -63,6 +62,7 @@ foreach ($sql as $query) {
 	}
 }
 echo "<pre>";
+print_r($_POST);
 print_r($survey);
 echo "</pre>";
 ?>
