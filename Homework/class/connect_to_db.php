@@ -61,15 +61,22 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_users_surveys (
 	user_id   INT(6) NOT NULL,
 	survey_id INT(6) NOT NULL,
 	CONSTRAINT PK_User_Reference_Survey PRIMARY KEY CLUSTERED (xref_id, user_id, survey_id),
-	CONSTRAINT FK_User_Survey     		FOREIGN KEY (user_id)   REFERENCES brandon.entity_users(id),
+	CONSTRAINT FK_User_Survey           FOREIGN KEY (user_id)   REFERENCES brandon.entity_users(id),
 	CONSTRAINT FK_Survey_User           FOREIGN KEY (survey_id) REFERENCES brandon.entity_surveys(id)
+)";
+//!enum_q_types
+$queries[] = "CREATE TABLE IF NOT EXISTS brandon.enum_q_types (
+	enum_id INT(1)      NOT NULL AUTO_INCREMENT,
+	type    VARCHAR(10) NOT NULL,
+	CONSTRAINT PK_Enum_Question PRIMARY KEY CLUSTERED (enum_id)
 )";
 //!entity_questions
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_questions (
 	id         INT(6)      NOT NULL AUTO_INCREMENT,
 	question   VARCHAR(50) NOT NULL,
-	type       INT(1)      NOT NULL,
-	CONSTRAINT PK_Questions PRIMARY KEY CLUSTERED (id)
+	type_id    INT(1)      NOT NULL,
+	CONSTRAINT PK_Questions    PRIMARY KEY CLUSTERED (id),
+	CONSTRAINT FK_Enum_Q_Types FOREIGN KEY (type_id) REFERENCES brandon.enum_q_types(enum_id)
 )";
 //!xref_surveys_questions
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_surveys_questions (
@@ -80,16 +87,10 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_surveys_questions (
 	CONSTRAINT FK_Survey_Question           FOREIGN KEY (survey_id)   REFERENCES brandon.entity_surveys(id),
 	CONSTRAINT FK_Question_Survey           FOREIGN KEY (question_id) REFERENCES brandon.entity_questions(id)
 )";
-//!enum_q_types
-$queries[] = "CREATE TABLE IF NOT EXISTS brandon.enum_q_types (
-	enum_id INT(1)      NOT NULL AUTO_INCREMENT,
-	type    VARCHAR(10) NOT NULL,
-	CONSTRAINT PK_Enum_Question PRIMARY KEY CLUSTERED (enum_id)
-)";
 //!entity_answers
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_answers (
-	id           INT(6)      NOT NULL AUTO_INCREMENT,
-	answer       VARCHAR(50) NOT NULL,
+	id     INT(6)       NOT NULL AUTO_INCREMENT,
+	answer VARCHAR(100) NOT NULL,
 	CONSTRAINT PK_Answer PRIMARY KEY CLUSTERED (id)
 )";
 //!xref_questions_answers
@@ -100,6 +101,20 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_questions_answers (
 	CONSTRAINT PK_Question_Reference_Answer PRIMARY KEY CLUSTERED (xref_id, question_id, answer_id),
 	CONSTRAINT FK_Question_Answer           FOREIGN KEY (question_id) REFERENCES brandon.entity_questions(id),
 	CONSTRAINT FK_Answer_Question           FOREIGN KEY (answer_id)   REFERENCES brandon.entity_answers(id)
+)";
+//!xref_responses
+$queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_responses (
+	xref_id     INT(6)    NOT NULL AUTO_INCREMENT,
+	timestamp   TIMESTAMP DEFAULT  NOW(),
+	user_id     INT(6)    NOT NULL,
+	survey_id   INT(6)    NOT NULL,
+	question_id INT(6)    NOT NULL,
+	answer_id   INT(6)    NOT NULL,
+	CONSTRAINT PK_Response_Reference_All      PRIMARY KEY CLUSTERED (xref_id),
+	CONSTRAINT FK_Response_Reference_User     FOREIGN KEY (user_id)     REFERENCES brandon.entity_users(id),
+	CONSTRAINT FK_Response_Reference_Survey   FOREIGN KEY (survey_id)   REFERENCES brandon.entity_surveys(id),
+	CONSTRAINT FK_Response_Reference_Question FOREIGN KEY (question_id) REFERENCES brandon.entity_questions(id),
+	CONSTRAINT FK_Response_Reference_Answer   FOREIGN KEY (answer_id)   REFERENCES brandon.entity_answers(id)
 )";
 //Test data to use
 foreach ($queries as $key => $value) {
@@ -119,6 +134,9 @@ foreach ($inserts as $key => $value) {
 }
 //Close sql connection
 $connect->close();
+echo "<pre>";
+print_r($queries);
+echo "</pre>";
 ?>
 
 

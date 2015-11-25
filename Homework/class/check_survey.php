@@ -30,26 +30,32 @@ for ($i = 1; $i < count($survey); $i++) {
 	}
 	echo "<br />";
 }
-$sql = "BEGIN;
-	INSERT INTO `entity_surveys` (`title`,`open`,`close`) VALUES ('{$survey[0]}',CURDATE(),CURDATE());
-	SELECT LAST_INSERT_ID() INTO @CUR_SURVEY_ID;";
+$sql   = ["START TRANSACTION;"];
+$sql[] = "INSERT INTO `entity_surveys` (`title`,`open`,`close`) VALUES ('{$survey[0]}',CURDATE(),CURDATE());";
+$sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_SURVEY_ID;";
 for ($i = 1; $i < count($survey); $i++) {
-	$sql .= "
-		INSERT INTO brandon.entity_questions (question, type) VALUES ('{$survey[$i]['question']}', '1');
-		SELECT LAST_INSERT_ID() INTO @CUR_QUESTION_ID;
-		INSERT INTO brandon.xref_surveys_questions (survey_id, question_id) VALUES (@CUR_SURVEY_ID, @CUR_QUESTION_ID);";
+	$sql[] = "INSERT INTO brandon.entity_questions (question, type_id) VALUES ('{$survey[$i]['question']}', '1');";
+	$sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_QUESTION_ID;";
+	$sql[] = "INSERT INTO brandon.xref_surveys_questions (survey_id, question_id) VALUES (@CUR_SURVEY_ID, @CUR_QUESTION_ID);";
 	foreach ($survey[$i]['answer'] as $value) {
-		$sql .= "
-			INSERT INTO brandon.entity_answers (answer) VALUES ('$value');
-			SELECT LAST_INSERT_ID() INTO @CUR_ANSWER_ID;
-			INSERT INTO brandon.xref_questions_answers (question_id, answer_id) VALUES (@CUR_QUESTION_ID, @CUR_ANSWER_ID);";
+		$sql[] = "INSERT INTO brandon.entity_answers (answer) VALUES ('$value');";
+		$sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_ANSWER_ID;";
+		$sql[] = "INSERT INTO brandon.xref_questions_answers (question_id, answer_id) VALUES (@CUR_QUESTION_ID, @CUR_ANSWER_ID);";
 	}
 }
-$sql .= "
-	SELECT id FROM brandon.entity_users WHERE email = '{$_SESSION['email']}' INTO @CUR_USER_ID;
-	INSERT INTO brandon.xref_users_surveys (user_id, survey_id) VALUES (@CUR_USER_ID, @CUR_SURVEY_ID);
-	COMMIT;";
-$other = "INSERT INTO entity_surveys (title, `open`, `close`) VALUES ('Survey Bitches', CURDATE(), CURDATE())";
-echo "<pre>$sql</pre>";
-run_query($connect, $sql);
+$sql[] = "SELECT id FROM brandon.entity_users WHERE email = '{$_SESSION['email']}' INTO @CUR_USER_ID;";
+$sql[] = "INSERT INTO brandon.xref_users_surveys (user_id, survey_id) VALUES (@CUR_USER_ID, @CUR_SURVEY_ID);";
+$sql[] = "COMMIT;";
+
+
+foreach ($sql as $query) {
+	if ($connect->query($query)) {
+		echo "Success!<br />";
+	} else {
+		$connect->query("ROLLBACK;");
+		echo $sql[$query]."<br />";
+		echo "Rolled back, no changes made.";
+		break;
+	}
+}
 ?>
