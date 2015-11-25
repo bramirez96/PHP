@@ -7,16 +7,20 @@ include('./db_connect.php');
 
 session_start();
 
-$survey[0] = $_POST['title'];
+$survey[0] = addslashes($_POST['title']);
 function preg_grep_keys($pattern, $input, $flags = 0) { #Function from Daniel Klein on PHP.net, thanks buddy
     return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input), $flags)));
 }
 function getAnsArray($q) {
-	return preg_grep_keys("/a$q\_\d/", $_POST);
+	$x = preg_grep_keys("/a$q\_\d/", $_POST);
+    foreach ($x as $key => $value) {
+	    $x[$key] = addslashes($value);
+    }
+    return $x;
 }
 for ($i = 1; $i <= $_POST['num_q']; $i++) {
 	$survey[] = [
-		'question' => $_POST['q'.$i],
+		'question' => addslashes($_POST['q'.$i]),
 		'answer' => getAnsArray($i)
 	];
 }
@@ -50,12 +54,15 @@ $sql[] = "COMMIT;";
 
 foreach ($sql as $query) {
 	if ($connect->query($query)) {
-		echo "Success!<br />";
+		echo "Success!";
 	} else {
 		$connect->query("ROLLBACK;");
-		echo $sql[$query]."<br />";
+		echo $query."<br />";
 		echo "Rolled back, no changes made.";
 		break;
 	}
 }
+echo "<pre>";
+print_r($survey);
+echo "</pre>";
 ?>
