@@ -66,8 +66,8 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_users_surveys (
 )";
 //!enum_q_type
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.enum_q_types (
-	enum_id INT(1)     NOT NULL AUTO_INCREMENT,
-	type    VARCHAR(6) NOT NULL,
+	enum_id INT(1)      NOT NULL AUTO_INCREMENT,
+	type    VARCHAR(10) NOT NULL,
 	CONSTRAINT PK_Enum_Q PRIMARY KEY CLUSTERED (enum_id)
 )";
 //!entity_questions
@@ -135,7 +135,7 @@ foreach ($queries as $key => $value) {
 echo "Tables created successfully or already exist. <br />";
 //Insert permanent enumerated table values
 $inserts['enum_a_types'] = "INSERT INTO brandon.enum_a_types (type) VALUES ('fixed'),('input')";
-$inserts['enum_q_types'] = "INSERT INTO brandon.enum_q_types (type) VALUES ('radio'),('check')";
+$inserts['enum_q_types'] = "INSERT INTO brandon.enum_q_types (type) VALUES ('radio'),('checkbox')";
 //Insert testing values for other tables
 $inserts['entity_users'] = "INSERT INTO brandon.entity_users (firstname, lastname, username, email, password) VALUES ('Tarahe','Trash','Faasd3','freen@email.com',SHA1('bloopers1234#$')),('Martin','Ortega','ShitBallZ$#@3','grass@ass.com',SHA1('password')),('Brandon','Ramirez','ToEndThePeace','bran.ramirez.don@gmail.com',SHA1('Yomommanobama13')),('Bloop','Bleep','Blargh123','bleeperz24@blotch.com',SHA1('TOKYO12345'))";
 foreach ($inserts as $key => $value) {
