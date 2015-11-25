@@ -104,13 +104,13 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_questions_answers (
 )";
 //!xref_responses
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_responses (
-	xref_id     INT(6)    NOT NULL AUTO_INCREMENT,
+	id          INT(6)    NOT NULL AUTO_INCREMENT,
 	timestamp   TIMESTAMP DEFAULT  NOW(),
 	user_id     INT(6)    NOT NULL,
 	survey_id   INT(6)    NOT NULL,
 	question_id INT(6)    NOT NULL,
 	answer_id   INT(6)    NOT NULL,
-	CONSTRAINT PK_Response_Reference_All      PRIMARY KEY CLUSTERED (xref_id),
+	CONSTRAINT PK_Response_Reference_All      PRIMARY KEY CLUSTERED (id),
 	CONSTRAINT FK_Response_Reference_User     FOREIGN KEY (user_id)     REFERENCES brandon.entity_users(id),
 	CONSTRAINT FK_Response_Reference_Survey   FOREIGN KEY (survey_id)   REFERENCES brandon.entity_surveys(id),
 	CONSTRAINT FK_Response_Reference_Question FOREIGN KEY (question_id) REFERENCES brandon.entity_questions(id),
