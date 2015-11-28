@@ -1,11 +1,7 @@
 <?php #index.php //Just some shit (I want whiskey)
 #Day 2... still want some fucking whiskey
 
-//Define database info
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "brandon");
+include('./db_connect.php');
 
 session_start();
 //
@@ -22,8 +18,7 @@ function clean_str(&$x) { //Use this on all the names
 	$x = strtr($x, $replace);
 	$x = filter_var($x, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 }
-if (!empty($_POST)) { //Run this if form was submitted
-	include('./db_connect.php');
+if (!empty($_POST)) { //Run this if form was submitted	
 	if (!empty($_POST['email'])) {
 		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		$_POST['email'] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);

@@ -1,11 +1,7 @@
 <?php #index.php //Just some shit (I want whiskey)
 #Day 2... still want some fucking whiskey
+include('./db_connect.php');
 
-//Define database info
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "brandon");
 
 session_start();
 //
@@ -17,9 +13,6 @@ if (isset($_SESSION['user'])) {
 	$user = $_SESSION['user'];
 }
 if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
-	//FORM VALIDATION
-	include('./db_connect.php');	
-	
 	foreach ($_POST as $key => $value) {
 		if (empty($value)) {
 			$error[$key] = "*";
@@ -92,12 +85,26 @@ if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 </form>
 _END;
 } else { //If user is logged in
-	$content['login'] = <<<_END
-<h1>Welcome, {$_SESSION['name']}!</h1>
-<p>
-	A paragraph.
-</p>
-_END;
+	$sql = "SELECT title FROM brandon.entity_surveys ES
+				INNER JOIN brandon.xref_users_surveys XUS
+					ON ES.id = XUS.survey_id
+				INNER JOIN brandon.entity_users EU
+					ON XUS.user_id = EU.id
+				WHERE email = '{$_SESSION['email']}'
+				ORDER BY title ASC";
+	if ($result = $connect->query($sql)) {
+		$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
+		while ($row = $result->fetch_row()) {
+			$x = urlencode($row[0]);
+			$content['login'] .= "<p><a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></p>";
+		}
+		$content['login'] .= "</div></div>";
+	} else {
+		$content['login'] = "<h1>Welcome, {$_SESSION['name']}!</h1>
+			<p>
+				No surveys were found for this user.
+			</p>";
+	}
 }
 $content['module1'] = "<a href='./signup.php'>Sign Up</a>";
 $content['module3'] = "<p>Another paragraph</p>";

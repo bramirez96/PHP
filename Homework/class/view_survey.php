@@ -1,10 +1,6 @@
 <?php # check_survey.php only for testing
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "brandon");
 include('./db_connect.php');
-
+$page_title = "View Survey";
 session_start();
 
 
@@ -73,14 +69,14 @@ function make_form($title, $db) {
 			}
 		}
 	}
-	$form .= "<form method=\"POST\" action=\"./view_survey.php\">";
+	$form .= "<form method=\"POST\" action=\"./view_survey.php?survey={$_GET['survey']}\">";
 	foreach ($questions as $array) { //Echo out the contents of the $questions array object
 		$form .= "<div class=\"grid clearfix\"><div class=\"col-1-1\">"; //New grid/col
 		$form .= "{$array['q_num']}. {$array['question']}<br />";
 		$form .= "</div></div>"; //End grid/col
 		$form .= "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
 		foreach ($array['answers'] as $ans_array) {
-			$form .= " <label><input type='{$array['type']}' name='q{$array['q_num']}' />  {$ans_array['answer']}</label><br />";
+			$form .= " <label><input type='{$array['type']}' name='q{$array['q_num']}[]' value=\"{$ans_array['answer']}\"/>  {$ans_array['answer']}</label><br />";
 		}
 		$form .= "</div></div>";
 	}
@@ -89,7 +85,14 @@ function make_form($title, $db) {
 	$form .= "</div></div><br />";
 	return $form;
 }
-$content['form'] = make_form("Potato Survey", $connect);
+$content['form'] = make_form($connect->real_escape_string($_GET['survey']), $connect);
+if (isset($_POST)) {
+	foreach ($_POST as $key => $value) {
+		foreach ($value as $value2) {
+			$content['form'] .= "$key: $value2 <br />";
+		}
+	}
+}
 
 
 include('./header.php');

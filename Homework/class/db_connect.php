@@ -1,5 +1,9 @@
 <?php # db_connect.php is used to connect to the database only
 //Function to query database
+define("DB_HOST", "127.0.0.1");
+define("DB_USER", "root");
+define("DB_PASS", "");
+define("DB_NAME", "brandon");
 function run_query($con, $sql) {
 	if ($con->query($sql) === TRUE) {
 		echo "Query executed successfully.";

@@ -1,10 +1,6 @@
 <?php # check_survey.php only for testing
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "brandon");
 include('./db_connect.php');
-
+$page_title = "Survey Posted";
 session_start();
 
 $survey[0] = addslashes($_POST['title']);
@@ -53,16 +49,30 @@ $sql[] = "COMMIT;";
 
 foreach ($sql as $query) {
 	if ($connect->query($query)) {
-		echo "Success!";
+		$content['result'] = "<div class=\"grid clearfix\">
+									<div class=\"col-1-1\">
+										<p>
+											Survey created and stored successfully!
+										</p>
+									</div>
+								</div>";
 	} else {
 		$connect->query("ROLLBACK;");
-		echo $query."<br />";
-		echo "Rolled back, no changes made.";
+		$content['result'] = "<div class=\"grid clearfix\">
+									<div class=\"col-1-1\">
+										<p>
+											We're sorry, but something went wrong when trying to process your survey! <br />
+											<a href=\"./new_survey.php\">Click here</a> to start over.
+										</p>
+									</div>
+								</div>";
 		break;
 	}
 }
-echo "<pre>";
-print_r($_POST);
-print_r($survey);
-echo "</pre>";
+
+
+
+include('./header.php');
+echo $content['result'];
+include('./footer.php');
 ?>

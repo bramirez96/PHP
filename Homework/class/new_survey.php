@@ -1,11 +1,6 @@
 <?php #index.php //Just some shit (I want whiskey)
 #Day 2... still want some fucking whiskey
-
-//Define database info
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "brandon");
+include('./db_connect.php');
 
 session_start();
 //
@@ -20,7 +15,6 @@ if (isset($_SESSION['user'])) {
 }
 if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 	//FORM VALIDATION
-	include('./db_connect.php');	
 	
 	foreach ($_POST as $key => $value) {
 		if (empty($value)) {

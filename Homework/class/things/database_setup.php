@@ -1,25 +1,6 @@
 <?php ## conect_to_db.php is used to connect to the database and create database/tables
-//Gonna use this page for CLASS PROJECT
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "brandon");
-//Function to query database
-function run_query($con, $sql) {
-	if ($con->query($sql) === TRUE) {
-		echo "Query executed successfully.";
-	} else {
-		echo "Query execution failed: " . $con->error;
-	}
-}
-//Connect to host
-$connect = new mysqli(DB_HOST, DB_USER, DB_PASS);
-//Check the connection status
-if ($connect->connect_error) {
-	die("Connection failed: " . $connect->error);
-}
-echo "Connected successfully.";
-echo "<br />";
+include('../db_connect.php');
+
 //Including a delete to be removed later
 if ($connect->query('DROP DATABASE IF EXISTS ' . DB_NAME) === TRUE) {
 	echo "Deleted existing database or it wasn't there. Clean start. <br />";
@@ -50,7 +31,7 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_users (
 //!entity_surveys
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_surveys (
 	id      INT(6)      NOT NULL AUTO_INCREMENT,
-	title   VARCHAR(20) NOT NULL,
+	title   VARCHAR(50) NOT NULL,
 	open    DATE        NOT NULL,
 	close   DATE        NOT NULL,
 	CONSTRAINT PK_Surveys PRIMARY KEY CLUSTERED (id)
