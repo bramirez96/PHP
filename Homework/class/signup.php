@@ -18,7 +18,8 @@ function clean_str(&$x) { //Use this on all the names
 	$x = strtr($x, $replace);
 	$x = filter_var($x, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 }
-if (!empty($_POST)) { //Run this if form was submitted	
+if (!empty($_POST)) { //Run this if form was submitted
+	$error['extras'] = "";
 	if (!empty($_POST['email'])) {
 		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		$_POST['email'] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
@@ -171,20 +172,12 @@ _END;
 </p>
 _END;
 }
-$content['module1'] = "Whoa";
-$content['module3'] = "<p>Another paragraph</p>";
 include("./header.php");
 //Put the inside of the #container tag in the following thingy
 echo <<<_END
 	<div class="grid clearfix">
-		<div class="col-1-4">
-			{$content['module1']}
-		</div>
-		<div class="col-1-2">
+		<div class="col-1-1">
 			{$content['signup']}
-		</div>
-		<div class="col-1-4">
-			{$content['module3']}
 		</div>
 	</div>
 _END;

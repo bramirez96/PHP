@@ -13,6 +13,7 @@ if (isset($_SESSION['user'])) {
 	$user = $_SESSION['user'];
 }
 if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
+	$content['count'] = 0;#61a3d7
 	foreach ($_POST as $key => $value) {
 		if (empty($value)) {
 			$error[$key] = "*";
@@ -25,13 +26,14 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 		}
 	}
 	if ($content['count'] === 2) {
-		$sql = "SELECT password, username, firstname, email FROM brandon.entity_users WHERE email = '{$content['email']}'";
+		$sql = "SELECT password, username, firstname, email, id FROM brandon.entity_users WHERE email = '{$content['email']}'";
 		if ($response = $connect->query($sql)) {
 			if ($response->num_rows != 0) {
 				while ($row = $response->fetch_assoc()) {
 					//Check to see if this shit is working
 					if ($row['password'] === sha1($content['pass'])) {
 						$_SESSION['user'] = $row['username'];
+						$_SESSION['id'] = $row['id'];
 						$_SESSION['name'] = $row['firstname'];
 						$_SESSION['email'] = $row['email'];
 					}
@@ -56,7 +58,8 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 
 
 if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
-	$content['login'] = <<<_END
+	$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
+	$content['login'] .= <<<_END
 <form method="post" action="./index.php">
 	<h1>Log In:</h1>
 	<table id="login">
@@ -84,21 +87,24 @@ if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 	</table>
 </form>
 _END;
+	$content['login'] .= "</div></div>";
 } else { //If user is logged in
 	$sql = "SELECT title FROM brandon.entity_surveys ES
 				INNER JOIN brandon.xref_users_surveys XUS
 					ON ES.id = XUS.survey_id
 				INNER JOIN brandon.entity_users EU
 					ON XUS.user_id = EU.id
-				WHERE email = '{$_SESSION['email']}'
+				WHERE user_id = '{$_SESSION['id']}'
 				ORDER BY title ASC";
 	if ($result = $connect->query($sql)) {
 		$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
+		$content['login'] .= "<h1>Your Surveys</h1>";
+		$content['login'] .= "<ul class=\"dotted\">";
 		while ($row = $result->fetch_row()) {
 			$x = urlencode($row[0]);
-			$content['login'] .= "<p><a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></p>";
+			$content['login'] .= "<li class=\"push_bot_5\">&middot; <a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
 		}
-		$content['login'] .= "</div></div>";
+		$content['login'] .= "</ul></div></div>";
 	} else {
 		$content['login'] = "<h1>Welcome, {$_SESSION['name']}!</h1>
 			<p>
@@ -106,22 +112,9 @@ _END;
 			</p>";
 	}
 }
-$content['module1'] = "<a href='./signup.php'>Sign Up</a>";
-$content['module3'] = "<p>Another paragraph</p>";
 include("./header.php");
+
 //Put the inside of the #container tag in the following thingy
-echo <<<_END
-	<div class="grid clearfix">
-		<div class="col-1-4">
-			{$content['module1']}
-		</div>
-		<div class="col-1-2">
-			{$content['login']}
-		</div>
-		<div class="col-1-4">
-			{$content['module3']}
-		</div>
-	</div>
-_END;
+echo $content['login'];
 include("./footer.php");
 ?>
