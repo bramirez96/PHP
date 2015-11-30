@@ -3,7 +3,7 @@ include('./db_connect.php');
 $page_title = "View Surveys";
 session_start();
 
-$query = "SELECT title, username, close FROM brandon.entity_surveys ES
+$query = "SELECT title, username, close, survey_id FROM brandon.entity_surveys ES
 				INNER JOIN brandon.xref_users_surveys XUS
 					ON ES.id = XUS.survey_id
 				INNER JOIN brandon.entity_users EU
@@ -17,7 +17,7 @@ if ($result = $connect->query($query)) {
 	$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./list_surveys.php?sort=username\">Created By</a></li>";
 	$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./list_surveys.php?sort=close\">Open Until</a></li>";
 	while ($row = $result->fetch_row()) {
-		$x = urlencode($row[0]);
+		$x = urlencode($row[3]);
 		$thing[1] .= "<li class=\"push_bot_5\">&nbsp;&middot; <a href=\"./take_survey.php?survey=$x\">{$row[0]}</a></li>";
 		$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
 		$thing[3] .= "<li class=\"push_bot_5\">{$row[2]}</li>";

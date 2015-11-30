@@ -94,7 +94,7 @@ _END;
 		$_GET['sort1'] = "title";
 		$_GET['sort2'] = "title";
 	}
-	$sql = "SELECT title, open, close FROM brandon.entity_surveys ES
+	$sql = "SELECT title, open, close, survey_id FROM brandon.entity_surveys ES
 				INNER JOIN brandon.xref_users_surveys XUS
 					ON ES.id = XUS.survey_id
 				INNER JOIN brandon.entity_users EU
@@ -104,11 +104,12 @@ _END;
 	if ($result = $connect->query($sql)) {
 		$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
 		$content['login'] .= "<h1>Your Surveys</h1>";
-		$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=title&sort2=". urlencode($_GET['sort2']) ."\">Survey Title</a></li>";
-		$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=open&sort2=". urlencode($_GET['sort2']) ."\">Opened On</a></li>";
-		$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=close&sort2=". urlencode($_GET['sort2']) ."\">Closes On</a></li>";
+		$sort2 = urlencode($_GET['sort2']);
+		$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=title&sort2=$sort2\">Survey Title</a></li>";
+		$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=open&sort2=$sort2\">Opened On</a></li>";
+		$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=close&sort2=$sort2\">Closes On</a></li>";
 		while ($row = $result->fetch_row()) {
-			$x = urlencode($row[0]);
+			$x = urlencode($row[3]);
 			$thing[1] .= "<li class=\"push_bot_5\">&middot; <a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
 			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
 			$thing[3] .= "<li class=\"push_bot_5\">{$row[2]}</li>";
@@ -135,7 +136,7 @@ _END;
 			</p>";
 	}
 	//Now we get the "surveys you've taken" section
-	$sql = "SELECT DISTINCT title, timestamp FROM brandon.entity_surveys ES
+	$sql = "SELECT DISTINCT title, timestamp, survey_id FROM brandon.entity_surveys ES
 				INNER JOIN brandon.entity_responses ER
 					ON ES.id = ER.survey_id
 				INNER JOIN brandon.entity_users EU
@@ -149,7 +150,7 @@ _END;
 		$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=$sort1&sort2=title\">Survey Title</a></li>";
 		$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=$sort1&sort2=timestamp\">Date Taken</a></li>";
 		while ($row = $result->fetch_row()) {
-			$x = urlencode($row[0]);
+			$x = urlencode($row[2]);
 			$y = urlencode($row[1]);
 			$thing[1] .= "<li class=\"push_bot_5\">&nbsp;&middot; <a href=\"./view_results.php?survey=$x&timestamp=$y\">{$row[0]}</a></li>";
 			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";

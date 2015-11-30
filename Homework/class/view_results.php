@@ -3,7 +3,7 @@ include('./db_connect.php');
 $page_title = $_GET['survey'];
 session_start();
 
-$title = urldecode($_GET['survey']);
+$surv_id = urldecode($_GET['survey']);
 $time = urldecode($_GET['timestamp']);
 $query = "SELECT * FROM brandon.entity_responses ER
 				INNER JOIN brandon.entity_users EU
@@ -14,10 +14,11 @@ $query = "SELECT * FROM brandon.entity_responses ER
 					ON ER.question_id = EQ.id
 				INNER JOIN brandon.entity_answers EA
 					ON ER.answer_id = EA.id
-				WHERE title = '$title' AND user_id = '{$_SESSION['id']}' AND timestamp = '$time'";
+				WHERE survey_id = '$surv_id' AND user_id = '{$_SESSION['id']}' AND timestamp = '$time'";
 $result = $connect->query($query);
 while($row = $result->fetch_assoc()) {
 	$questions[$row['q_num']][$row['question']][] = $row['answer'];
+	$title = $row['title'];
 }
 $result->free();
 

@@ -1,14 +1,15 @@
 <?php # make_form.php # Used to parse database info into useable forms for surveys
-function make_form($title, $db) {
-	$sql = "SELECT MAX(q_num) FROM brandon.entity_surveys ES
+function make_form($id, $db) {
+	$sql = "SELECT MAX(q_num), title FROM brandon.entity_surveys ES
 				INNER JOIN brandon.xref_surveys_questions XSQ
 					ON ES.id = XSQ.survey_id
 				INNER JOIN brandon.entity_questions EQ
 					ON XSQ.question_id = EQ.id
-				WHERE title = '$title'";
+				WHERE survey_id = '$id'";
 	$result = $db->query($sql);
 	while ($row = $result->fetch_row()) {
 		$maxQ = $row[0];
+		$title = $row[1];
 	}
 	$result->free();
 	$form = "<div class=\"grid clearfix\">
@@ -25,7 +26,7 @@ function make_form($title, $db) {
 							ON XSQ.question_id = EQ.id
 						INNER JOIN brandon.enum_q_types EQT
 							ON EQ.type_id = EQT.enum_id
-						WHERE q_num = '$i' AND title = '$title'";
+						WHERE q_num = '$i' AND survey_id = '$id'";
 		$result = $db->query($query);
 		while ($row = $result->fetch_assoc()) {
 			$questions[$i] = $row;
@@ -40,7 +41,7 @@ function make_form($title, $db) {
 							ON EQ.id = XQA.question_id
 						INNER JOIN brandon.entity_answers EA
 							ON XQA.answer_id = EA.id
-						WHERE q_num = '$i' AND title = '$title'";
+						WHERE q_num = '$i' AND survey_id = '$id'";
 		$result = $db->query($query);
 		while ($row = $result->fetch_row()) {
 			$maxAns = $row[0];
@@ -56,7 +57,7 @@ function make_form($title, $db) {
 								ON EQ.id = XQA.question_id
 							INNER JOIN brandon.entity_answers EA
 								ON XQA.answer_id = EA.id
-							WHERE a_num = '$c' AND q_num = '$i' AND title = '$title'";
+							WHERE a_num = '$c' AND q_num = '$i' AND survey_id = '$id'";
 			$result = $db->query($query);
 			while ($row = $result->fetch_assoc()) {
 				$questions[$i]['answers'][$c] = $row;
