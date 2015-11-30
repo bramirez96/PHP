@@ -30,10 +30,10 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_users (
 )";
 //!entity_surveys
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_surveys (
-	id      INT(6)      NOT NULL AUTO_INCREMENT,
-	title   VARCHAR(50) NOT NULL,
-	open    DATE        NOT NULL,
-	close   DATE        NOT NULL,
+	id      INT(6) NOT NULL AUTO_INCREMENT,
+	title   TEXT   NOT NULL,
+	open    DATE   NOT NULL,
+	close   DATE   NOT NULL,
 	CONSTRAINT PK_Surveys PRIMARY KEY CLUSTERED (id)
 )";
 //!xref_user_surveys
@@ -48,15 +48,15 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_users_surveys (
 //!enum_q_type
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.enum_q_types (
 	enum_id INT(1)      NOT NULL AUTO_INCREMENT,
-	type    VARCHAR(10) NOT NULL,
+	q_type  VARCHAR(10) NOT NULL,
 	CONSTRAINT PK_Enum_Q PRIMARY KEY CLUSTERED (enum_id)
 )";
 //!entity_questions
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_questions (
-	id       INT(6)      NOT NULL AUTO_INCREMENT,
-	question VARCHAR(50) NOT NULL,
-	q_num    INT(2)      NOT NULL,
-	type_id  INT(1)      NOT NULL,
+	id       INT(6) NOT NULL AUTO_INCREMENT,
+	question TEXT   NOT NULL,
+	q_num    INT(2) NOT NULL,
+	type_id  INT(1) NOT NULL,
 	CONSTRAINT PK_Questions PRIMARY KEY CLUSTERED (id),
 	CONSTRAINT FK_Enum_Ques FOREIGN KEY (type_id) REFERENCES brandon.enum_q_types(enum_id)
 )";
@@ -72,15 +72,15 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.xref_surveys_questions (
 //!enum_a_types
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.enum_a_types (
 	enum_id INT(1)      NOT NULL AUTO_INCREMENT,
-	type    VARCHAR(10) NOT NULL,
+	a_type  VARCHAR(10) NOT NULL,
 	CONSTRAINT PK_Enum_A PRIMARY KEY CLUSTERED (enum_id)
 )";
 //!entity_answers
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.entity_answers (
-	id      INT(6)       NOT NULL AUTO_INCREMENT,
-	answer  VARCHAR(100) NOT NULL,
-	a_num   INT(2)       NOT NULL,
-	type_id INT(1)       NOT NULL,
+	id      INT(6) NOT NULL AUTO_INCREMENT,
+	answer  TEXT   NOT NULL,
+	a_num   INT(2) NOT NULL,
+	type_id INT(1) NOT NULL,
 	CONSTRAINT PK_Answer   PRIMARY KEY CLUSTERED (id),
 	CONSTRAINT FK_Enum_Ans FOREIGN KEY (type_id) REFERENCES brandon.enum_a_types(enum_id)
 )";
@@ -115,8 +115,8 @@ foreach ($queries as $key => $value) {
 }
 echo "Tables created successfully or already exist. <br />";
 //Insert permanent enumerated table values
-$inserts['enum_a_types'] = "INSERT INTO brandon.enum_a_types (type) VALUES ('fixed'),('input')";
-$inserts['enum_q_types'] = "INSERT INTO brandon.enum_q_types (type) VALUES ('radio'),('checkbox')";
+$inserts['enum_a_types'] = "INSERT INTO brandon.enum_a_types (a_type) VALUES ('fixed'),('input')";
+$inserts['enum_q_types'] = "INSERT INTO brandon.enum_q_types (q_type) VALUES ('radio'),('checkbox')";
 //Insert testing values for other tables
 $inserts['entity_users'] = "INSERT INTO brandon.entity_users (firstname, lastname, username, email, password) VALUES ('Tarahe','Trash','Faasd3','freen@email.com',SHA1('bloopers1234#$')),('Martin','Ortega','ShitBallZ$#@3','grass@ass.com',SHA1('password')),('Brandon','Ramirez','ToEndThePeace','bran.ramirez.don@gmail.com',SHA1('Yomommanobama13')),('Bloop','Bleep','Blargh123','bleeperz24@blotch.com',SHA1('TOKYO12345'))";
 foreach ($inserts as $key => $value) {

@@ -173,7 +173,7 @@ a {
 }
 a:hover, a:active {
 	color: #f4a61d;
-	border-bottom: 1px solid #f4a61d;
+	border-bottom: 1px solid #61a3d6;
 }
 nav a:link, nav a:active, nav a:visited {
 	color: #f0f0f4;
@@ -182,7 +182,7 @@ nav a:hover {
 	color: #61a3d6;
 	border-bottom: 1px solid #f4a61d;
 }
-input[type='submit'] {
+input[type='submit'], a.button {
 	background-color: #f4a61d;
 	color: #f0f0f4;
 	font-family: "Bebas Neue", sans-serif;
@@ -193,7 +193,7 @@ input[type='submit'] {
 	margin-top: 15px;
 	border: 1px solid #f4a61d;
 }
-input[type='submit']:hover {
+input[type='submit']:hover, a.button:hover {
 	background-color: #f0f0f4;
 	color: #f4a61d;
 }
@@ -207,12 +207,12 @@ input[type='submit']:hover {
 	color: #f45848;
 }
 
-#list_surveys ul li:first-of-type a {
+.list_surveys ul li:first-of-type a {
 	color: #f4a61d;
 	border: 0;
 	font-style: italic;
 }
-#list_surveys ul li:first-of-type a:hover {
+.list_surveys ul li:first-of-type a:hover {
 	color: #61a3d6;
 }
 
@@ -261,6 +261,15 @@ ul.dotted {
 }
 .big_text {
 	font-size: 2em;
+}
+.no_top_pad * {
+	padding-top: 0;
+}
+.indent {
+	margin-left: 1em;
+}
+.little_big {
+	font-size: 1.5em;
 }
 
 

@@ -6,7 +6,6 @@ function make_form($title, $db) {
 				INNER JOIN brandon.entity_questions EQ
 					ON XSQ.question_id = EQ.id
 				WHERE title = '$title'";
-	$new = "";
 	$result = $db->query($sql);
 	while ($row = $result->fetch_row()) {
 		$maxQ = $row[0];
@@ -19,7 +18,7 @@ function make_form($title, $db) {
 			</div>";
 	for ($i = 1; $i <= $maxQ; $i++) {
 		//Loops through all the queries to get questions
-		$query = "SELECT question_id, q_num, question, type, survey_id FROM brandon.entity_surveys ES
+		$query = "SELECT question_id, q_num, question, q_type, survey_id FROM brandon.entity_surveys ES
 						INNER JOIN brandon.xref_surveys_questions XSQ
 							ON ES.id = XSQ.survey_id
 						INNER JOIN brandon.entity_questions EQ
@@ -72,7 +71,7 @@ function make_form($title, $db) {
 		$form .= "</div></div>"; //End grid/col
 		$form .= "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
 		foreach ($array['answers'] as $ans_array) {
-			$form .= " <label><input type='{$array['type']}' name='{$array['question_id']}[]' value=\"{$ans_array['answer_id']}\"/>  {$ans_array['answer']}</label><br />";
+			$form .= " <label><input type='{$array['q_type']}' name='{$array['question_id']}[]' value=\"{$ans_array['answer_id']}\"/>  {$ans_array['answer']}</label><br />";
 		}
 		$form .= "</div></div>";
 	}

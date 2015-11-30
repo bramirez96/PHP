@@ -89,27 +89,87 @@ if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 _END;
 	$content['login'] .= "</div></div>";
 } else { //If user is logged in
-	$sql = "SELECT title FROM brandon.entity_surveys ES
+	//First we get the "Your surveys" section
+	if (empty($_GET)) {
+		$_GET['sort1'] = "title";
+		$_GET['sort2'] = "title";
+	}
+	$sql = "SELECT title, open, close FROM brandon.entity_surveys ES
 				INNER JOIN brandon.xref_users_surveys XUS
 					ON ES.id = XUS.survey_id
 				INNER JOIN brandon.entity_users EU
 					ON XUS.user_id = EU.id
 				WHERE user_id = '{$_SESSION['id']}'
-				ORDER BY title ASC";
+				ORDER BY {$_GET['sort1']} ASC";
 	if ($result = $connect->query($sql)) {
 		$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
 		$content['login'] .= "<h1>Your Surveys</h1>";
-		$content['login'] .= "<ul class=\"dotted\">";
+		$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=title&sort2=". urlencode($_GET['sort2']) ."\">Survey Title</a></li>";
+		$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=open&sort2=". urlencode($_GET['sort2']) ."\">Opened On</a></li>";
+		$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=close&sort2=". urlencode($_GET['sort2']) ."\">Closes On</a></li>";
 		while ($row = $result->fetch_row()) {
 			$x = urlencode($row[0]);
-			$content['login'] .= "<li class=\"push_bot_5\">&middot; <a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
+			$thing[1] .= "<li class=\"push_bot_5\">&middot; <a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
+			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
+			$thing[3] .= "<li class=\"push_bot_5\">{$row[2]}</li>";
 		}
+		$thing[1] .= "</ul>";
+		$thing[2] .= "</ul>";
+		$thing[3] .= "</ul>";
+		$content['login'] .= "<div class=\"grid clearfix list_surveys\">
+								<div class=\"col-1-3\">
+									{$thing[1]}
+								</div>
+								<div class=\"col-1-3\">
+									{$thing[2]}
+								</div>
+								<div class=\"col-1-3\">
+									{$thing[3]}
+								</div>
+							</div>";
 		$content['login'] .= "</ul></div></div>";
 	} else {
 		$content['login'] = "<h1>Welcome, {$_SESSION['name']}!</h1>
 			<p>
 				No surveys were found for this user.
 			</p>";
+	}
+	//Now we get the "surveys you've taken" section
+	$sql = "SELECT DISTINCT title, timestamp FROM brandon.entity_surveys ES
+				INNER JOIN brandon.entity_responses ER
+					ON ES.id = ER.survey_id
+				INNER JOIN brandon.entity_users EU
+					ON EU.id = ER.user_id
+				WHERE user_id = '{$_SESSION['id']}'
+				ORDER BY {$_GET['sort2']} ASC";
+	if ($result = $connect->query($sql)) {
+		$content['login'] .= "<h1>Surveys You've Taken</h1>";
+		$sort1 = urlencode($_GET['sort1']);
+		$content['login'] .= "<div class=\"grid clearfix no_top_pad\"><div class=\"col-1-1\">";
+		$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=$sort1&sort2=title\">Survey Title</a></li>";
+		$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=$sort1&sort2=timestamp\">Date Taken</a></li>";
+		while ($row = $result->fetch_row()) {
+			$x = urlencode($row[0]);
+			$y = urlencode($row[1]);
+			$thing[1] .= "<li class=\"push_bot_5\">&nbsp;&middot; <a href=\"./view_results.php?survey=$x&timestamp=$y\">{$row[0]}</a></li>";
+			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
+		}
+		$thing[1] .= "</ul>";
+		$thing[2] .= "</ul>";
+		$content['login'] .= "<div class=\"grid clearfix list_surveys\">
+								<div class=\"col-1-3\">
+									{$thing[1]}
+								</div>
+								<div class=\"col-1-3\">
+									{$thing[2]}
+								</div>
+								<div class=\"col-1-3\">
+									
+								</div>
+							</div>";
+		$content['login'] .= "</div></div>";
+	} else {
+		$content['login'] .= "<h1>No surveys found</h1>";
 	}
 }
 include("./header.php");

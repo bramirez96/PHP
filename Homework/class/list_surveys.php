@@ -25,7 +25,7 @@ if ($result = $connect->query($query)) {
 	$thing[1] .= "</ul>";
 	$thing[2] .= "</ul>";
 	$thing[3] .= "</ul>";
-	$content['list'] .= "<div class=\"grid clearfix\" id=\"list_surveys\">
+	$content['list'] .= "<div class=\"grid clearfix list_surveys\">
 							<div class=\"col-1-3\">
 								{$thing[1]}
 							</div>
