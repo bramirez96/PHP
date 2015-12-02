@@ -16,7 +16,7 @@ function Question(x) {
 		"</div>" +
 		"<div class=\"grid clearfix underline_box\">" +
 			"<div class=\"col-1-5\">" +
-			"<button type=\"button\" onclick=\"q[" + (this.qnum - 1) + "].addAnswer()\">+Add Answer</button>" +
+			"<button type=\"button\" onclick=\"q[" + (this.qnum - 1) + "].addAnswer()\">Add Answer</button>" +
 			"</div>" +
 			"<div id=\"answers\" class=\"col-4-5\">" +
 				"<div class=\"grid clearfix\">" +

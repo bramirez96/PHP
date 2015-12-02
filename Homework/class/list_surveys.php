@@ -18,7 +18,7 @@ if ($result = $connect->query($query)) {
 	$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./list_surveys.php?sort=close\">Open Until</a></li>";
 	while ($row = $result->fetch_row()) {
 		$x = urlencode($row[3]);
-		$thing[1] .= "<li class=\"push_bot_5\">&nbsp;&middot; <a href=\"./take_survey.php?survey=$x\">{$row[0]}</a></li>";
+		$thing[1] .= "<li class=\"push_bot_5\"><a href=\"./take_survey.php?survey=$x\">{$row[0]}</a></li>";
 		$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
 		$thing[3] .= "<li class=\"push_bot_5\">{$row[2]}</li>";
 	}

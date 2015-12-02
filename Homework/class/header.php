@@ -17,7 +17,7 @@ if (isset($_SESSION['user'])) {
 			<div id="header-wrap">
 				<header class="content">
 					<div id="notLogo">
-						<h1>SurveyWhiz</h1>
+						<h1>Survey<span class="light">Whiz</span></h1>
 						<nav>
 							<ul>
 								<?php

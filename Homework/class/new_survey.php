@@ -80,7 +80,7 @@ $content['login'] = <<<_END
 	</div>
 	<div class="grid clearfix">
 		<div class="col-1-1">
-			<button type="button" onclick="q.push(new Question())">+Add Question</button>
+			<button type="button" onclick="q.push(new Question())">Add Question</button>
 		</div>
 	</div>
 	<div class="grid clearfix">

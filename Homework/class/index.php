@@ -110,7 +110,7 @@ _END;
 		$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=close&sort2=$sort2\">Closes On</a></li>";
 		while ($row = $result->fetch_row()) {
 			$x = urlencode($row[3]);
-			$thing[1] .= "<li class=\"push_bot_5\">&middot; <a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
+			$thing[1] .= "<li class=\"push_bot_5\"><a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
 			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
 			$thing[3] .= "<li class=\"push_bot_5\">{$row[2]}</li>";
 		}
@@ -152,7 +152,7 @@ _END;
 		while ($row = $result->fetch_row()) {
 			$x = urlencode($row[2]);
 			$y = urlencode($row[1]);
-			$thing[1] .= "<li class=\"push_bot_5\">&nbsp;&middot; <a href=\"./view_results.php?survey=$x&timestamp=$y\">{$row[0]}</a></li>";
+			$thing[1] .= "<li class=\"push_bot_5\"><a href=\"./view_results.php?survey=$x&timestamp=$y\">{$row[0]}</a></li>";
 			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
 		}
 		$thing[1] .= "</ul>";
