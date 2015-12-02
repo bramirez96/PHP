@@ -26,7 +26,7 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 		}
 	}
 	if ($content['count'] === 2) {
-		$sql = "SELECT password, username, firstname, email, id FROM brandon.entity_users WHERE email = '{$content['email']}'";
+		$sql = "SELECT password, username, firstname, email, id FROM brandon.2601166_entity_users WHERE email = '{$content['email']}'";
 		if ($response = $connect->query($sql)) {
 			if ($response->num_rows != 0) {
 				while ($row = $response->fetch_assoc()) {
@@ -94,10 +94,10 @@ _END;
 		$_GET['sort1'] = "title";
 		$_GET['sort2'] = "title";
 	}
-	$sql = "SELECT title, open, close, survey_id FROM brandon.entity_surveys ES
-				INNER JOIN brandon.xref_users_surveys XUS
+	$sql = "SELECT title, open, close, survey_id FROM brandon.2601166_entity_surveys ES
+				INNER JOIN brandon.2601166_xref_users_surveys XUS
 					ON ES.id = XUS.survey_id
-				INNER JOIN brandon.entity_users EU
+				INNER JOIN brandon.2601166_entity_users EU
 					ON XUS.user_id = EU.id
 				WHERE user_id = '{$_SESSION['id']}'
 				ORDER BY {$_GET['sort1']} ASC";
@@ -136,10 +136,10 @@ _END;
 			</p>";
 	}
 	//Now we get the "surveys you've taken" section
-	$sql = "SELECT DISTINCT title, timestamp, survey_id FROM brandon.entity_surveys ES
-				INNER JOIN brandon.entity_responses ER
+	$sql = "SELECT DISTINCT title, timestamp, survey_id FROM brandon.2601166_entity_surveys ES
+				INNER JOIN brandon.2601166_entity_responses ER
 					ON ES.id = ER.survey_id
-				INNER JOIN brandon.entity_users EU
+				INNER JOIN brandon.2601166_entity_users EU
 					ON EU.id = ER.user_id
 				WHERE user_id = '{$_SESSION['id']}'
 				ORDER BY {$_GET['sort2']} ASC";

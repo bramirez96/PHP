@@ -28,7 +28,7 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 		}
 	}
 	if ($content['count'] === 2) {
-		$sql = "SELECT password, username, firstname FROM brandon.entity_users WHERE email = '{$content['email']}'";
+		$sql = "SELECT password, username, firstname FROM brandon.2601166_entity_users WHERE email = '{$content['email']}'";
 		if ($response = $connect->query($sql)) {
 			if ($response->num_rows != 0) {
 				while ($row = $response->fetch_assoc()) {

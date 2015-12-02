@@ -30,20 +30,20 @@ for ($i = 1; $i <= $_POST['num_q']; $i++) {
 
 //Eventually the below code will append statements to an sql query
 $sql   = ["START TRANSACTION;"];
-$sql[] = "INSERT INTO `entity_surveys` (`title`,`open`,`close`) VALUES ('{$survey[0]}',CURDATE(),CURDATE());";
+$sql[] = "INSERT INTO `2601166_entity_surveys` (`title`,`open`,`close`) VALUES ('{$survey[0]}',CURDATE(),CURDATE());";
 $sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_SURVEY_ID;";
 for ($i = 1; $i < count($survey); $i++) {
-	$sql[] = "INSERT INTO brandon.entity_questions (question, q_num, type_id) VALUES ('{$survey[$i]['question']}', '$i', '{$survey[$i]['type']}');";
+	$sql[] = "INSERT INTO brandon.2601166_entity_questions (question, q_num, type_id) VALUES ('{$survey[$i]['question']}', '$i', '{$survey[$i]['type']}');";
 	$sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_QUESTION_ID;";
-	$sql[] = "INSERT INTO brandon.xref_surveys_questions (survey_id, question_id) VALUES (@CUR_SURVEY_ID, @CUR_QUESTION_ID);";
+	$sql[] = "INSERT INTO brandon.2601166_xref_surveys_questions (survey_id, question_id) VALUES (@CUR_SURVEY_ID, @CUR_QUESTION_ID);";
 	for ($c = 1; $c <= count($survey[$i]['answer']); $c++) {
-		$sql[] = "INSERT INTO brandon.entity_answers (answer, a_num, type_id) VALUES ('{$survey[$i]['answer']['a'.$i.'_'.$c]}', '$c', '{$survey[$i]['ans_types']['t'.$i.'_'.$c]}');";
+		$sql[] = "INSERT INTO brandon.2601166_entity_answers (answer, a_num, type_id) VALUES ('{$survey[$i]['answer']['a'.$i.'_'.$c]}', '$c', '{$survey[$i]['ans_types']['t'.$i.'_'.$c]}');";
 		$sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_ANSWER_ID;";
-		$sql[] = "INSERT INTO brandon.xref_questions_answers (question_id, answer_id) VALUES (@CUR_QUESTION_ID, @CUR_ANSWER_ID);";
+		$sql[] = "INSERT INTO brandon.2601166_xref_questions_answers (question_id, answer_id) VALUES (@CUR_QUESTION_ID, @CUR_ANSWER_ID);";
 	}
 }
-$sql[] = "SELECT id FROM brandon.entity_users WHERE email = '{$_SESSION['email']}' INTO @CUR_USER_ID;";
-$sql[] = "INSERT INTO brandon.xref_users_surveys (user_id, survey_id) VALUES (@CUR_USER_ID, @CUR_SURVEY_ID);";
+$sql[] = "SELECT id FROM brandon.2601166_entity_users WHERE email = '{$_SESSION['email']}' INTO @CUR_USER_ID;";
+$sql[] = "INSERT INTO brandon.2601166_xref_users_surveys (user_id, survey_id) VALUES (@CUR_USER_ID, @CUR_SURVEY_ID);";
 $sql[] = "COMMIT;";
 
 

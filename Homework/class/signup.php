@@ -23,7 +23,7 @@ if (!empty($_POST)) { //Run this if form was submitted
 	if (!empty($_POST['email'])) {
 		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		$_POST['email'] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-		$sql = "SELECT email FROM brandon.entity_users WHERE email = '{$_POST['email']}'";
+		$sql = "SELECT email FROM brandon.2601166_entity_users WHERE email = '{$_POST['email']}'";
 		$response = $connect->query($sql);
 		if ($response === null) {
 			//Do nothing
@@ -36,7 +36,7 @@ if (!empty($_POST)) { //Run this if form was submitted
 	}
 	if (!empty($_POST['uname'])) {
 		clean_str($_POST['uname']);
-		$sql = "SELECT username FROM brandon.entity_users WHERE username = '{$_POST['uname']}'";
+		$sql = "SELECT username FROM brandon.2601166_entity_users WHERE username = '{$_POST['uname']}'";
 		$response = $connect->query($sql);
 		if ($response === null) {
 			//Do nothing
@@ -70,7 +70,7 @@ if (!empty($_POST)) { //Run this if form was submitted
 		foreach ($content as $key => $value) {
 			$content[$key] = mysql_real_escape_string($value);
 		}
-		$sql = "INSERT INTO entity_users (firstname, lastname, username, email, password) " .
+		$sql = "INSERT INTO 2601166_entity_users (firstname, lastname, username, email, password) " .
 			"VALUES ('{$content['fname']}', '{$content['lname']}', '{$content['uname']}', '{$content['email']}', SHA1('{$content['pass']}'))";
 		if (!$result = $connect->query($sql)) {
 			echo "Query error: " . $connect->error;

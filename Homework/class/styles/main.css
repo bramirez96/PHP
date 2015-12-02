@@ -240,6 +240,9 @@ button:hover {
 .list_surveys ul li:first-of-type a:hover {
 	color: #61a3d6;
 }
+[data-item-num] {
+	display: none; /* This is later changes with javascript to paginate */
+}
 
 /* Arbitrary Stylings */
 .float-right {

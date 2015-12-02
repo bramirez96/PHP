@@ -5,14 +5,14 @@ session_start();
 
 $surv_id = urldecode($_GET['survey']);
 $time = urldecode($_GET['timestamp']);
-$query = "SELECT * FROM brandon.entity_responses ER
-				INNER JOIN brandon.entity_users EU
+$query = "SELECT * FROM brandon.2601166_entity_responses ER
+				INNER JOIN brandon.2601166_entity_users EU
 					ON ER.user_id = EU.id
-				INNER JOIN brandon.entity_surveys ES
+				INNER JOIN brandon.2601166_entity_surveys ES
 					ON ER.survey_id = ES.id
-				INNER JOIN brandon.entity_questions EQ
+				INNER JOIN brandon.2601166_entity_questions EQ
 					ON ER.question_id = EQ.id
-				INNER JOIN brandon.entity_answers EA
+				INNER JOIN brandon.2601166_entity_answers EA
 					ON ER.answer_id = EA.id
 				WHERE survey_id = '$surv_id' AND user_id = '{$_SESSION['id']}' AND timestamp = '$time'";
 $result = $connect->query($query);

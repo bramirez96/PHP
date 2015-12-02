@@ -25,7 +25,7 @@ if (empty($_POST)) {
 	}
 	$queries[] = "START TRANSACTION;";
 	foreach ($data['answer_id'] as $key => $value) {
-		$queries[] = "INSERT INTO brandon.entity_responses (user_id, survey_id, question_id, answer_id) VALUES ('{$data['user_id']}', '{$data['survey_id']}', '{$data['question_id'][$key]}', '{$value}')";
+		$queries[] = "INSERT INTO brandon.2601166_entity_responses (user_id, survey_id, question_id, answer_id) VALUES ('{$data['user_id']}', '{$data['survey_id']}', '{$data['question_id'][$key]}', '{$value}')";
 	}
 	$queries[] = "COMMIT;";
 	foreach ($queries as $sql) {
