@@ -1,3 +1,4 @@
+@import url('./fonts/include_fonts.css');
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -140,6 +141,7 @@ header #logo {
 	font-size: 50px;
 	margin-bottom: 0;
 	line-height: 1.3em;
+	padding-top: 3px;
 }
 #notLogo nav {
 	height: 25px;
@@ -156,6 +158,7 @@ body {
 	background-color: #f0f0f4;
 	color: #3a3d41;
 	font-family: "Bebas Neue", sans-serif;
+	font-weight: 400;
 }
 #header-wrap, #footer-wrap {
 	background-color: #3a3d41;
@@ -163,6 +166,7 @@ body {
 }
 h1 {
 	color: #61a3d6;
+	font-weight: 600;
 }
 header h1 {
 	color: #f4a61d;
@@ -182,20 +186,30 @@ nav a:hover {
 	color: #61a3d6;
 	border-bottom: 1px solid #f4a61d;
 }
-input[type='submit'], a.button {
+input[type='submit'], a.button, button {
 	background-color: #f4a61d;
 	color: #f0f0f4;
 	font-family: "Bebas Neue", sans-serif;
+	font-weight: 600;
+	letter-spacing: .03em;
 	font-size: 1em;
-	padding: 6px 10px 4px;
+	padding: 8px 10px 5px;
 	border: 0;
 	cursor: pointer;
 	margin-top: 15px;
 	border: 1px solid #f4a61d;
 }
-input[type='submit']:hover, a.button:hover {
+input[type='submit']:hover, a.button:hover, button:hover {
 	background-color: #f0f0f4;
 	color: #f4a61d;
+}
+button {
+	background-color: #f45848;
+	border-color: #f45848;
+	padding: 4px 8px 1px;
+}
+button:hover {
+	color: #f45848;
 }
 .orange {
 	color: #f4a61d;
@@ -206,11 +220,22 @@ input[type='submit']:hover, a.button:hover {
 .pink {
 	color: #f45848;
 }
+.thin {
+	font-weight: 100;
+}
+.light {
+	font-weight: 200;
+}
+.book {
+	font-weight: 300;
+}
 
 .list_surveys ul li:first-of-type a {
 	color: #f4a61d;
 	border: 0;
 	font-style: italic;
+	font-weight: 600;
+	font-size: 1.2em;
 }
 .list_surveys ul li:first-of-type a:hover {
 	color: #61a3d6;
@@ -239,7 +264,7 @@ td:last-child {
 	color: #F00;
 }
 h1 {
-	font-size: 2.5em;
+	font-size: 3em;
 	margin-bottom: 10px;
 }
 .underline_box {
