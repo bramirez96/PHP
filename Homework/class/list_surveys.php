@@ -20,35 +20,36 @@ if ($result = $connect->query($query)) {
 	while ($row = $result->fetch_row()) {
 		$x = urlencode($row[3]);
 		$result_id++;
-		$thing[1] .= "<li class=\"push_bot_5\" data-item-num=\"$result_id\"><a href=\"./take_survey.php?survey=$x\">{$row[0]}</a></li>";
-		$thing[2] .= "<li class=\"push_bot_5\" data-item-num=\"$result_id\">{$row[1]}</li>";
-		$thing[3] .= "<li class=\"push_bot_5\" data-item-num=\"$result_id\">{$row[2]}</li>";
+		$thing[1] .= "<li class=\"push_bot_5\" data-item-num-take=\"$result_id\"><a href=\"./take_survey.php?survey=$x\">{$row[0]}</a></li>";
+		$thing[2] .= "<li class=\"push_bot_5\" data-item-num-take=\"$result_id\">{$row[1]}</li>";
+		$thing[3] .= "<li class=\"push_bot_5\" data-item-num-take=\"$result_id\">{$row[2]}</li>";
 	}
 	$thing[1] .= "</ul>";
 	$thing[2] .= "</ul>";
 	$thing[3] .= "</ul>";
-	$content['list'] .= "<div class=\"grid clearfix list_surveys\">
-							<div class=\"col-1-3\">
-								{$thing[1]}
-							</div>
-							<div class=\"col-1-3\">
-								{$thing[2]}
-							</div>
-							<div class=\"col-1-3\">
-								{$thing[3]}
-							</div>
-						</div>
-						<div class=\"grid clearfix\">
-							<div class=\"col-1-1 center\">
-								<button onclick=\"pageBack()\">&lt;</button>
-								<button onclick=\"nextPage()\">&gt;</button>
-							</div>
-						</div>";
-	$content['list'] .= "</div></div>";
-	$content['list'] .= "<script type=\"text/javascript\">var numResults = $result_id;</script>";
 	$content['list'] .= <<<_END
+	</div></div>
+<div class="grid clearfix list_surveys">
+	<div class="col-1-3">
+		{$thing[1]}
+	</div>
+	<div class="col-1-3">
+		{$thing[2]}
+	</div>
+	<div class="col-1-3">
+		{$thing[3]}
+	</div>
+</div>
+<div class="grid clearfix">
+	<div class="col-1-1 center">
+		<button id="take_back">&lt;</button>
+		<span id="take_range"></span>
+		<button id="take_next">&gt;</button>
+	</div>
+</div>
+<script type="text/javascript" src="./scripts/paginate.js"></script>
 <script type="text/javascript">
-	
+	var take = new Pages('take', $result_id, 3);
 </script>
 _END;
 }

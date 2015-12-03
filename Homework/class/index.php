@@ -108,11 +108,13 @@ _END;
 		$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=title&sort2=$sort2\">Survey Title</a></li>";
 		$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=open&sort2=$sort2\">Opened On</a></li>";
 		$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=close&sort2=$sort2\">Closes On</a></li>";
+		$result_id1 = 0;
 		while ($row = $result->fetch_row()) {
 			$x = urlencode($row[3]);
-			$thing[1] .= "<li class=\"push_bot_5\"><a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
-			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
-			$thing[3] .= "<li class=\"push_bot_5\">{$row[2]}</li>";
+			$result_id1++;
+			$thing[1] .= "<li class=\"push_bot_5\" data-item-num-my=\"$result_id1\"><a href=\"./view_survey.php?survey=$x\">{$row[0]}</a></li>";
+			$thing[2] .= "<li class=\"push_bot_5\" data-item-num-my=\"$result_id1\">{$row[1]}</li>";
+			$thing[3] .= "<li class=\"push_bot_5\" data-item-num-my=\"$result_id1\">{$row[2]}</li>";
 		}
 		$thing[1] .= "</ul>";
 		$thing[2] .= "</ul>";
@@ -126,6 +128,13 @@ _END;
 								</div>
 								<div class=\"col-1-3\">
 									{$thing[3]}
+								</div>
+							</div>
+							<div class=\"grid clearfix\">
+								<div class=\"col-1-1 center\">
+									<button id=\"my_back\">&lt;</button>
+									<span id=\"my_range\"></span>
+									<button id=\"my_next\">&gt;</button>
 								</div>
 							</div>";
 		$content['login'] .= "</ul></div></div>";
@@ -149,11 +158,13 @@ _END;
 		$content['login'] .= "<div class=\"grid clearfix no_top_pad\"><div class=\"col-1-1\">";
 		$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=$sort1&sort2=title\">Survey Title</a></li>";
 		$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./index.php?sort1=$sort1&sort2=timestamp\">Date Taken</a></li>";
+		$result_id2 = 0;
 		while ($row = $result->fetch_row()) {
 			$x = urlencode($row[2]);
 			$y = urlencode($row[1]);
-			$thing[1] .= "<li class=\"push_bot_5\"><a href=\"./view_results.php?survey=$x&timestamp=$y\">{$row[0]}</a></li>";
-			$thing[2] .= "<li class=\"push_bot_5\">{$row[1]}</li>";
+			$result_id2++;
+			$thing[1] .= "<li class=\"push_bot_5\" data-item-num-taken=\"$result_id2\"><a href=\"./view_results.php?survey=$x&timestamp=$y\">{$row[0]}</a></li>";
+			$thing[2] .= "<li class=\"push_bot_5\" data-item-num-taken=\"$result_id2\">{$row[1]}</li>";
 		}
 		$thing[1] .= "</ul>";
 		$thing[2] .= "</ul>";
@@ -167,8 +178,22 @@ _END;
 								<div class=\"col-1-3\">
 									
 								</div>
+							</div>
+							<div class=\"grid clearfix\">
+								<div class=\"col-1-1 center\">
+									<button id=\"taken_back\">&lt;</button>
+									<span id=\"taken_range\"></span>
+									<button id=\"taken_next\">&gt;</button>
+								</div>
 							</div>";
 		$content['login'] .= "</div></div>";
+		$content['login'] .= <<<_END
+<script type="text/javascript" src="./scripts/paginate.js"></script>
+<script type="text/javascript">
+	var my = new Pages('my', $result_id1, 3);
+	var taken = new Pages('taken', $result_id2, 2);
+</script>
+_END;
 	} else {
 		$content['login'] .= "<h1>No surveys found</h1>";
 	}

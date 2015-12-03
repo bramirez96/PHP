@@ -211,6 +211,19 @@ button {
 button:hover {
 	color: #f45848;
 }
+button.alt {
+	background-color: #f0f0f4;
+	color: #61a3d6;
+	border-color: #f0f0f4;
+}
+button.alt:hover, button.select.alt {
+	background-color: #61a3d6;
+	border-color: #61a3d6;
+	color: #f0f0f4;
+}
+.center button {
+	padding: 4px 8px 1px;
+}
 .orange {
 	color: #f4a61d;
 }
@@ -239,9 +252,6 @@ button:hover {
 }
 .list_surveys ul li:first-of-type a:hover {
 	color: #61a3d6;
-}
-[data-item-num] {
-	display: none; /* This is later changes with javascript to paginate */
 }
 
 /* Arbitrary Stylings */
