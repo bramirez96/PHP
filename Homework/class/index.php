@@ -39,8 +39,6 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 					}
 				}
 				$response->free();
-			} else {
-				echo "Invalid email";
 			}
 		}
 	}
