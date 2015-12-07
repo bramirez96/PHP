@@ -122,6 +122,12 @@ footer p {
 .col-2-3 {
 	width: 66.66%;
 }
+.col-3-10 {
+	width: 30%;
+}
+.col-1-10 {
+	width: 10%;
+}
 /* Header */
 header {
 	height: 100px;
@@ -248,7 +254,7 @@ button.alt:hover, button.select.alt {
 	font-weight: 300;
 }
 
-.list_surveys ul li:first-of-type a {
+.list_surveys ul li:first-of-type a, #edit {
 	color: #f4a61d;
 	border: 0;
 	font-style: italic;

@@ -83,7 +83,7 @@ if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" />
+					<input type="submit" value="Log In" />
 				</td>
 			</tr>
 		</tbody>
