@@ -8,9 +8,9 @@ $user = "Guest";
 session_unset();
 session_destroy();
 $content['logout'] = <<<_END
-<p>
-	You've successfully logged out.
-</p>
+<h2>
+	You&rsquo;ve successfully logged out.
+</h2>
 _END;
 include("./header.php");
 //Put the inside of the #container tag in the following thingy

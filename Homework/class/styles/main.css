@@ -168,6 +168,11 @@ h1 {
 	color: #61a3d6;
 	font-weight: 600;
 }
+h2 {
+	color: #f45848;
+	font-size: 2em;
+	font-weight: 600;
+}
 header h1 {
 	color: #f4a61d;
 }

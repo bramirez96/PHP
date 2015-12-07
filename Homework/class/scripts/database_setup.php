@@ -20,12 +20,12 @@ $connect->select_db(DB_NAME);
 //the following queries create the tables
 //!entity_users
 $queries[] = "CREATE TABLE IF NOT EXISTS brandon.2601166_entity_users (
-	id        INT(6)        NOT NULL AUTO_INCREMENT,
-	firstname VARCHAR(20)   NOT NULL,
-	lastname  VARCHAR(20)   NOT NULL,
-	username  VARCHAR(20)   NOT NULL,
-	email     VARCHAR(30)   NOT NULL,
-	password  CHARACTER(40) NOT NULL,
+	id        INT(6)      NOT NULL AUTO_INCREMENT,
+	firstname VARCHAR(20) NOT NULL,
+	lastname  VARCHAR(20) NOT NULL,
+	username  VARCHAR(20) NOT NULL,
+	email     VARCHAR(30) NOT NULL,
+	password  CHAR(40)    NOT NULL,
 	CONSTRAINT PK_Users PRIMARY KEY CLUSTERED (id, email)
 )";
 //!entity_surveys
@@ -107,6 +107,14 @@ $queries[] = "CREATE TABLE IF NOT EXISTS brandon.2601166_entity_responses (
 	CONSTRAINT FK_Response_Reference_Question FOREIGN KEY (question_id) REFERENCES brandon.2601166_entity_questions(id),
 	CONSTRAINT FK_Response_Reference_Answer   FOREIGN KEY (answer_id)   REFERENCES brandon.2601166_entity_answers(id)
 )";
+//!entity_admin
+$queries[] = "CREATE TABLE IF NOT EXISTS brandon.2601166_entity_admins (
+	id       TINYINT(2)  NOT NULL AUTO_INCREMENT,
+	username VARCHAR(20) NOT NULL DEFAULT 'root',
+	email    VARCHAR(50) NOT NULL,
+	password CHAR(40)    NOT NULL,
+	CONSTRAINT PK_Admins PRIMARY KEY CLUSTERED (id, email)
+)";
 //Test data to use
 foreach ($queries as $key => $value) {
 	echo "$key: ";
@@ -115,10 +123,11 @@ foreach ($queries as $key => $value) {
 }
 echo "Tables created successfully or already exist. <br />";
 //Insert permanent enumerated table values
-$inserts['enum_a_types'] = "INSERT INTO brandon.2601166_enum_a_types (a_type) VALUES ('fixed'),('input')";
-$inserts['enum_q_types'] = "INSERT INTO brandon.2601166_enum_q_types (q_type) VALUES ('radio'),('checkbox')";
+$inserts[] = "INSERT INTO brandon.2601166_enum_a_types (a_type) VALUES ('fixed'),('input')";
+$inserts[] = "INSERT INTO brandon.2601166_enum_q_types (q_type) VALUES ('radio'),('checkbox')";
 //Insert testing values for other tables
-$inserts['entity_users'] = "INSERT INTO brandon.2601166_entity_users (firstname, lastname, username, email, password) VALUES ('Tarahe','Trash','Faasd3','freen@email.com',SHA1('bloopers1234#$')),('Martin','Ortega','donkey_face','grass@oregano.com',SHA1('password')),('Brandon','Ramirez','ToEndThePeace','bran.ramirez.don@gmail.com',SHA1('Yomommanobama13')),('Bloop','Bleep','Blargh123','bleeperz24@blotch.com',SHA1('TOKYO12345'))";
+$inserts[] = "INSERT INTO brandon.2601166_entity_users (firstname, lastname, username, email, password) VALUES ('Tarahe','Trash','Faasd3','freen@email.com',SHA1('bloopers1234#$')),('Martin','Ortega','donkey_face','grass@oregano.com',SHA1('password')),('Brandon','Ramirez','ToEndThePeace','bran.ramirez.don@gmail.com',SHA1('Yomommanobama13')),('Bloop','Bleep','Blargh123','bleeperz24@blotch.com',SHA1('TOKYO12345'))";
+$inserts[] = "INSERT INTO brandon.2601166_entity_admins (username, email, password) VALUES ('root','bran.ramirez.don@gmail.com',SHA1('admin'))";
 for ($i = 5; $i <= 50; $i++) {
 	if ($i < 10) {
 		$u_num = 0 . $i;

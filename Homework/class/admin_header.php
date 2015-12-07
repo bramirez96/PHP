@@ -20,19 +20,10 @@ if (isset($_SESSION['user'])) {
 						<h1>Survey<span class="light">Whiz</span></h1>
 						<nav>
 							<ul>
-								<?php
-									if ($logged_in) {
-										echo "<li><a href=\"./index.php\">Home</a></li>
-											<li><a href=\"./list_surveys.php?sort=title\">Take Surveys</a></li>
-											<li><a href=\"./new_survey.php\">Create Survey</a></li>
-											<li class=\"float-right\"><a href=\"./logout.php\">Log Out</a></li>
-											<li class=\"float-right\">Logged in as: <span class=\"blue\">" . $user . "</span></li>";
-									} else {
-										echo "<li><a href=\"./index.php\">Log In</a></li>
-											<li><a href=\"./signup.php\">Sign Up</a></li>
-											<li><a href=\"./admin_index.php\">Admin Login</a></li>";
-									}
-								?>
+								<li><a href="./admin_index.php?sort=lastname">View Users</a></li>
+								<li><a href="./ad_view_surveys.php?sort=title">View Surveys</a></li>
+								<li class="float-right"><a href="./logout.php">Log Out</a></li>
+								<li class="float-right">Logged in as: <span class="blue"><?php echo $user ?></span></li>
 							</ul>
 						</nav>
 					</div> <!-- End #notLogo -->

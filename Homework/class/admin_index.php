@@ -5,7 +5,7 @@ include('./db_connect.php');
 
 session_start();
 //
-$page_title = "Home";
+$page_title = "Admin Login";
 $user = "Guest";
 
 if (isset($_SESSION['user'])) {
@@ -13,7 +13,7 @@ if (isset($_SESSION['user'])) {
 	$user = $_SESSION['user'];
 }
 if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
-	$content['count'] = 0;#61a3d7
+	$content['count'] = 0;
 	foreach ($_POST as $key => $value) {
 		if (empty($value)) {
 			$error[$key] = "*";
@@ -26,7 +26,7 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 		}
 	}
 	if ($content['count'] === 2) {
-		$sql = "SELECT password, username, firstname, email, id FROM brandon.2601166_entity_users WHERE email = '{$content['email']}'";
+		$sql = "SELECT password, username, email, id FROM brandon.2601166_entity_admins WHERE email = '{$content['email']}'";
 		if ($response = $connect->query($sql)) {
 			if ($response->num_rows != 0) {
 				while ($row = $response->fetch_assoc()) {
@@ -34,7 +34,6 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 					if ($row['password'] === sha1($content['pass'])) {
 						$_SESSION['user'] = $row['username'];
 						$_SESSION['id'] = $row['id'];
-						$_SESSION['name'] = $row['firstname'];
 						$_SESSION['email'] = $row['email'];
 					} else {
     					$error['pass'] = "*";
@@ -63,8 +62,8 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 	$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
 	$content['login'] .= <<<_END
-<form method="post" action="./index.php">
-	<h1>Log In:</h1>
+<form method="post" action="./admin_index.php">
+	<h1>Admin Log In:</h1>
 	<table id="login">
 		<tbody>
 			<tr>
@@ -91,6 +90,7 @@ if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 </form>
 _END;
 	$content['login'] .= "</div></div>";
+	include('./header.php');
 } else { //If user is logged in
 	//First we get the "Your surveys" section
 	if (empty($_GET)) {
@@ -197,11 +197,9 @@ _END;
 	var taken = new Pages('taken', $result_id2, 2);
 </script>
 _END;
-	} else {
-		$content['login'] .= "<h1>No surveys found</h1>";
+	include('./admin_header.php');
 	}
 }
-include("./header.php");
 
 //Put the inside of the #container tag in the following thingy
 echo $content['login'];
