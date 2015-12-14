@@ -43,7 +43,6 @@ Question.prototype.addAnswer = function() {
 			"<div class=\"col-3-4\">" +
 				"<input type=\"text\" name=\"a" + this.qnum + "_" + this.answers + "\" />"+
 				"<input type=\"hidden\" name=\"t" + this.qnum + "_" + this.answers + "\" value=\"1\"> " +
-				" <label><input type=\"checkbox\" name=\"t" + this.qnum + "_" + this.answers + "\" value=\"2\">Input Field</label> " +
 			"</div>" +
 		"</div>");
 }

@@ -2,13 +2,14 @@
 function O(obj) {
 	return document.getElementById(obj);
 }
-function Pages(name, results, col) {
+function Pages(name, results, col, inc) {
+	if (typeof inc !== 'undefined') this.inc = inc;
+	else if (this.total < 10) this.inc = this.total;
+	else this.inc = 10;
 	this.name = name;
 	this.total  = results;
 	this.cols   = col;
 	this.offset = 0;
-	if (this.total < 10) this.inc = this.total;
-	else this.inc = 10;
 	this.npages = Math.ceil(this.total / this.inc);
 	this.page   = 1;
 	O(this.name + '_back').setAttribute("onclick", this.name + ".stepBack()");
