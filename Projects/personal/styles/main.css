@@ -266,7 +266,6 @@ button.alt:hover, button.select.alt {
 .list_surveys ul li:first-of-type a, #edit {
 	color: #f4a61d;
 	border: 0;
-	font-style: italic;
 	font-weight: 600;
 	font-size: 1.2em;
 }
@@ -277,6 +276,9 @@ button.alt:hover, button.select.alt {
 /* Arbitrary Stylings */
 .float-right {
 	float: right;
+}
+.float-left {
+    float: left;
 }
 table {
 	width: 100%;
@@ -293,12 +295,34 @@ td:last-child {
 .left {
 	text-align: left;
 }
+.right {
+    text-align: right;
+}
 .red {
 	color: #F00;
 }
 h1 {
 	font-size: 3em;
 	margin-bottom: 10px;
+}
+h3, h3 a {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #61a3d6;
+    font-weight: 600;
+}
+.right h3, .right h3 a {
+    color: #f4a61d;
+}
+h3 a:hover {
+    color: #f45848;
+    border-width: 0;
+}
+.right h3 a:hover {
+    color: #f45848;
+}
+.normal {
+    font-family: 'Open Sans', Helvetica, sans-serif;
 }
 .underline_box {
 	border-bottom: 1px solid #3a3d41;
@@ -333,6 +357,10 @@ img#profile_pic {
     width: 150px;
     height: 150px;
 }
+img.msg {
+    width: 65px;
+    height: 65px;
+}
 .tiny {
     font-size: .4em;
     font-style: italic;
@@ -340,6 +368,10 @@ img#profile_pic {
 }
 span.tiny {
     font-size: .8em;
+}
+textarea {
+    resize: none;
+    overflow: scroll;
 }
 
 

@@ -100,15 +100,60 @@ if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 _END;
 	$content['login'] .= "</div></div>";
 } else { //If user is logged in
+    $sql = "SELECT EU.id AS id, firstname, lastname, username, status, timestamp FROM 2601166_entity_statuses ES
+            	INNER JOIN 2601166_xref_statuses XS
+            		ON XS.status_id = ES.id
+            	INNER JOIN 2601166_entity_users EU
+            		ON EU.id = XS.poster_id
+            	WHERE EU.id <> {$_SESSION['id']}
+            	ORDER BY timestamp DESC;";
+    if ($response = $connect->query($sql)) {
+        $content['feed'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
+        $thing = "<ul><li class=\"push_bot_5\"><h2>Live Feed</h2></li>";
+        $result_id = 0;
+        while ($row = $response->fetch_assoc()) {
+            $result_id++;
+            $thing .= "<li class=\"push_bot_5\" data-item-num-feed=\"$result_id\">
+                            <div class=\"grid clearfix\">
+                                <div class=\"col-1-8\">
+                                    <img class=\"msg\" src=\"./images/img_frame.png\" />
+                                </div>
+                                <div class=\"col-7-8 normal\">
+                                    <h3><a href=\"./profile.php?user={$row['id']}\">{$row['firstname']} {$row['lastname']}</a> <span class=\"tiny\">{$row['username']}</span></h3>
+                                    <p>
+                                        {$row['status']}<br />
+                                        <span class=\"tiny\">{$row['timestamp']}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>";
+        }
+        $thing .= "</ul>";
+        $content['feed'] .= "$thing 
+                        <div id=\"feed_nav\" class=\"grid clearfix\">
+                            <div class=\"col-1-1 center\">
+                                <button id=\"feed_back\">&lt;</button>
+                                <span id=\"feed_range\"></span>
+                                <button id=\"feed_next\">&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+    } else {
+        $content['feed'] = "Couldn't load feed.";
+    }
 	$content['login'] = <<<_END
 <div class="grid clearfix">
     <div class="col-1-1">
         <h1>Welcome, {$_SESSION['user']}!</h1>
-        <p>
-            You&rsquo;re totally logged in.
-        </p>
+        <div class="grid clearfix">
+            {$content['feed']}
+        </div>
     </div>
 </div>
+<script type="text/javascript">
+    var feed = new Pages("feed", $result_id, 1, 10);
+</script>
 _END;
 }
 include("./header.php");

@@ -11,6 +11,9 @@ function Pages(name, results, col, inc) {
 	this.cols   = col;
 	this.offset = 0;
 	this.npages = Math.ceil(this.total / this.inc);
+	if (this.npages == 1) {
+    	O(this.name + '_nav').style.display = "none";
+	}
 	this.page   = 1;
 	O(this.name + '_back').setAttribute("onclick", this.name + ".stepBack()");
 	O(this.name + '_next').setAttribute("onclick", this.name + ".stepNext()");

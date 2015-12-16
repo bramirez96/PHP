@@ -26,7 +26,6 @@ $queries[] = "CREATE TABLE IF NOT EXISTS 2601166_entity_users (
 	username  VARCHAR(20)   NOT NULL,
 	email     VARCHAR(30)   NOT NULL,
 	password  CHAR(40)      NOT NULL,
-	about     VARCHAR(8000) DEFAULT '',
 	CONSTRAINT PK_Users PRIMARY KEY CLUSTERED (id, email)
 )";
 //!entity_profiles
@@ -58,12 +57,14 @@ $queries[] = "CREATE TABLE IF NOT EXISTS 2601166_entity_posts (
 )";
 //!xref_messages
 $queries[] = "CREATE TABLE IF NOT EXISTS 2601166_xref_messages (
-    xref_id  INT(6) NOT NULL AUTO_INCREMENT,
-    send_id  INT(6) NOT NULL,
-    recip_id INT(6) NOT NULL,
+    xref_id    INT(6) NOT NULL AUTO_INCREMENT,
+    send_id    INT(6) NOT NULL,
+    recip_id   INT(6) NOT NULL,
+    message_id INT(6) NOT NULL,
     CONSTRAINT PK_Xref_Messages   PRIMARY KEY CLUSTERED (xref_id),
-    CONSTRAINT FK_Messages_Sender FOREIGN KEY (send_id)  REFERENCES 2601166_entity_users(id),
-    CONSTRAINT FK_Messages_Sendee FOREIGN KEY (recip_id) REFERENCES 2601166_entity_users(id)
+    CONSTRAINT FK_Messages_Sender  FOREIGN KEY (send_id)    REFERENCES 2601166_entity_users(id),
+    CONSTRAINT FK_Messages_Sendee  FOREIGN KEY (recip_id)   REFERENCES 2601166_entity_users(id),
+    CONSTRAINT FK_Messages_Message FOREIGN KEY (message_id) REFERENCES 2601166_entity_messages(id)
 )";
 //!xref_statuses
 $queries[] = "CREATE TABLE IF NOT EXISTS 2601166_xref_statuses (

@@ -20,15 +20,17 @@ $sql = "SELECT lastname, firstname, username, email, id FROM 2601166_entity_user
 if ($result = $connect->query($sql)) {
 	$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
 	$content['login'] .= "<h1>View Profile</h1>";
-	$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./users.php?sort=lastname,firstname\">Name</a></li>";
+	$thing[1] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./users.php?sort=lastname,firstname\">Profiles</a></li>";
 	$thing[2] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./users.php?sort=username\">Username</a></li>";
 	$thing[3] = "<ul><li class=\"push_bot_5 underline\"><a href=\"./users.php?sort=email\">Email</a></li>";
+	$thing[4] = "<ul><li class=\"push_bot_5 underline\"><a>Send Message</a></li>";
 	$result_id = 0;
 	while ($row = $result->fetch_row()) {
 		$result_id++;
 		$thing[1] .= "<li class=\"push_bot_5\" data-item-num-users=\"$result_id\"><a href=\"./profile.php?user={$row[4]}\">{$row[1]} {$row[0]}</a></li>";
 		$thing[2] .= "<li class=\"push_bot_5\" data-item-num-users=\"$result_id\">{$row[2]}</li>";
 		$thing[3] .= "<li class=\"push_bot_5\" data-item-num-users=\"$result_id\">{$row[3]}</li>";
+		$thing[4] .= "<li class=\"push_bot_5\" data-item-num-users=\"$result_id\"><a href=\"./view_messages.php?user={$row[4]}\">View Messages</a></li>";
 	}
 	$thing[1] .= "</ul>";
 	$thing[2] .= "</ul>";
@@ -43,18 +45,21 @@ if ($result = $connect->query($sql)) {
 							<div class=\"col-1-4\">
 								{$thing[3]}
 							</div>
+							<div class=\"col-1-4\">
+							    {$thing[4]}
+							</div>
 						</div>
-						<div class=\"grid clearfix\">
+						<div id=\"users_nav\" class=\"grid clearfix\">
 							<div class=\"col-1-1 center\">
 								<button id=\"users_back\">&lt;</button>
 								<span id=\"users_range\"></span>
 								<button id=\"users_next\">&gt;</button>
 							</div>
 						</div>";
-	$content['login'] .= "</ul></div></div>";
+	$content['login'] .= "</div></div>";
 	$content['login'] .= <<<_END
 <script type="text/javascript">
-	var users = new Pages('users', $result_id, 3, 15);
+	var users = new Pages('users', $result_id, 4, 15);
 </script>
 _END;
 } else {
