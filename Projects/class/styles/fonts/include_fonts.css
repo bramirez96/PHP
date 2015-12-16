@@ -1,35 +1,25 @@
 @font-face {
   font-family: 'Bebas Neue';
-  src: url('./bebas/bebasneue-thin.svg') format('svg'),
-       url('./bebas/bebasneue-thin.ttf') format('truetype'),
-       url('./bebas/bebasneue-thin.otf');
+  src: url('./bebas/bebasneue-thin.otf');
   font-weight: 100;
 }
 @font-face {
   font-family: 'Bebas Neue';
-  src: url('./bebas/bebasneue-light.svg') format('svg'),
-       url('./bebas/bebasneue-light.ttf') format('truetype'),
-       url('./bebas/bebasneue-light.otf');
+  src: url('./bebas/bebasneue-light.otf');
   font-weight: 200;
 }
 @font-face {
   font-family: 'Bebas Neue';
-  src: url('./bebas/bebasneue-book.svg') format('svg'),
-       url('./bebas/bebasneue-book.ttf') format('truetype'),
-       url('./bebas/bebasneue-book.otf');
+  src: url('./bebas/bebasneue-book.otf');
   font-weight: 300;
 }
 @font-face {
   font-family: 'Bebas Neue';
-  src: url('./bebas/bebasneue-regular.svg') format('svg'),
-       url('./bebas/bebasneue-regular.ttf') format('truetype'),
-       url('./bebas/bebasneue-regular.otf');
+  src: url('./bebas/bebasneue-regular.otf');
   font-weight: 400;
 }
 @font-face {
   font-family: 'Bebas Neue';
-  src: url('./bebas/bebasneue-bold.svg') format('svg'),
-       url('./bebas/bebasneue-bold.ttf') format('ttf'),
-       url('./bebas/bebasneue-bold.otf');
+  src: url('./bebas/bebasneue-bold.otf');
   font-weight: 600;
 }
