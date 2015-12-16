@@ -99,17 +99,8 @@ foreach ($queries as $key => $value) {
 }
 echo "Tables created successfully or already exist. <br />";
 //Insert testing values for other tables
-$inserts['entity_users'] = "INSERT INTO 2601166_entity_users (firstname, lastname, username, email, password) VALUES ('Tarahe','Trash','Faasd3','freen@email.com',SHA1('bloopers1234#$')), ('Martin','Ortega','donkey_face','grass@oregano.com',SHA1('password')),('Brandon','Ramirez','ToEndThePeace','bran.ramirez.don@gmail.com',SHA1('Yomommanobama13')),('Bloop','Bleep','Blargh123','bleeperz24@blotch.com',SHA1('TOKYO12345'))";
-$inserts[] = "INSERT INTO 2601166_entity_admins (username, email, password) VALUES ('root','bran.ramirez.don@gmail.com',SHA1('admin'))";
-for ($i = 5; $i <= 50; $i++) {
-	if ($i < 10) {
-		$u_num = 0 . $i;
-	} else {
-		$u_num = $i;
-	}
-	$inserts['entity_users'] .= ",('First$u_num','Last$u_num','User$u_num','$u_num@email.com',SHA1('$u_num'))";
-}
-$inserts['entity_users'] .= ";";
+$inserts['entity_users'] = "INSERT INTO 2601166_entity_users (firstname, lastname, username, email, password) VALUES ('Tanya','Zaragoza','FFALover3','freen@email.com',SHA1('bloopers1234#$')), ('Martin','Ortega','donkey_face','grass@oregano.com',SHA1('password')),('Brandon','Ramirez','ToEndThePeace','bran.ramirez.don@gmail.com',SHA1('Yomommanobama13')),('Bloop','Bleep','Blargh123','bleeperz24@blotch.com',SHA1('TOKYO12345'))";
+$inserts[] = "INSERT INTO 2601166_entity_admins (username, email, password) VALUES ('root','bran.ramirez.don@gmail.com',SHA1('admin'));";
 
 
 foreach ($inserts as $key => $value) {

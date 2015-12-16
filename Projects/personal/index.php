@@ -68,21 +68,25 @@ if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
         <form method="post" action="./index.php">
             <h1>Log In:</h1>
             <div class="grid clearfix nopad">
-                <div class="col-1-8">
-                    Email:<br />
-                </div>
-                <div class="col-7-8">
-                    <input type="text" name="email" value="{$content['email']}" />
-                    <span class="red">{$error['email']}</span>
-                </div>
-            </div>
-            <div class="grid clearfix">
-                <div class="col-1-8">
-                    Password:
-                </div>
-                <div class="col-7-8">
-                    <input type="password" name="pass" />
-                    <span class="red">{$error['pass']}</span>
+                <div class="col-1-1">
+                    <div class="grid clearfix">
+                        <div class="col-1-8">
+                            Email:<br />
+                        </div>
+                        <div class="col-7-8">
+                            <input type="text" name="email" value="{$content['email']}" />
+                            <span class="red">{$error['email']}</span>
+                        </div>
+                    </div>
+                    <div class="grid clearfix">
+                        <div class="col-1-8">
+                            Password:
+                        </div>
+                        <div class="col-7-8">
+                            <input type="password" name="pass" />
+                            <span class="red">{$error['pass']}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="grid clearfix">

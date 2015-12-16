@@ -23,7 +23,7 @@ if (!empty($_POST)) { //Run this if form was submitted
 	if (!empty($_POST['email'])) {
 		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		$_POST['email'] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-		$sql = "SELECT email FROM brandon.2601166_entity_users WHERE email = '{$_POST['email']}'";
+		$sql = "SELECT email FROM 2601166_entity_users WHERE email = '{$_POST['email']}'";
 		$response = $connect->query($sql);
 		if ($response === null) {
 			//Do nothing
@@ -36,7 +36,7 @@ if (!empty($_POST)) { //Run this if form was submitted
 	}
 	if (!empty($_POST['uname'])) {
 		clean_str($_POST['uname']);
-		$sql = "SELECT username FROM brandon.2601166_entity_users WHERE username = '{$_POST['uname']}'";
+		$sql = "SELECT username FROM 2601166_entity_users WHERE username = '{$_POST['uname']}'";
 		$response = $connect->query($sql);
 		if ($response === null) {
 			//Do nothing
@@ -104,66 +104,82 @@ if (empty($_POST)) { //If post is empty, or if data was inputted to database and
 
 if (!isset($_SESSION['user'])) {
 	$content['signup'] = <<<_END
-<form method="post" action="./signup.php">
-	<input type="hidden" name="posted" value="TRUE" />
-	<h1>Sign Up:</h1>
-	<table id="signup">
-		<thead style="display: {$error['display']}">
-			<tr>
-				<td colspan="2" class="red">You didn&rsquo;t input valid form data! {$error['extras']}</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>First Name:</td>
-				<td>
-					<input type="text" name="fname" value="{$content['fname']}" />
-					<span class="red">{$error['fname']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Last Name:</td>
-				<td>
-					<input type="text" name="lname" value="{$content['lname']}" />
-					<span class="red">{$error['lname']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Username:</td>
-				<td>
-					<input type="text" name="uname" value="{$content['uname']}" />
-					<span class="red">{$error['uname']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Email:</td>
-				<td>
-					<input type="text" name="email" value="{$content['email']}" />
-					<span class="red">{$error['email']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td>
-					<input type="password" name="pass" />
-					<span class="red">{$error['pass']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Confirm Password:</td>
-				<td>
-					<input type="password" name="cpass" />
-					<span class="red">{$error['cpass']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" />
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+<div class="grid clearfix">
+    <div class="col-1-1">
+        <form method="post" action="./signup.php">
+        	<input type="hidden" name="posted" value="TRUE" />
+        	<h1>Sign Up:</h1>
+        	<div id="signup" class="grid clearfix nopad">
+        		<div class="col-1-1">
+        			<div class="grid clearfix" style="display:{$error['display']};">
+        			    <div class="col-1-1 red">
+        				    You didn&rsquo;t input valid form data! {$error['extras']}
+                        </div>
+                    </div>
+                    <div class="grid clearfix">
+                        <div class="col-1-8">
+                            First Name:
+                        </div>
+                        <div class="col-7-8">
+                            <input type="text" name="fname" value="{$content['fname']}" />
+        					<span class="red">{$error['fname']}</span>
+                        </div>
+                    </div>
+                    <div class="grid clearfix">
+                        <div class="col-1-8">
+                            Last Name:
+                        </div>
+                        <div class="col-7-8">
+                            <input type="text" name="lname" value="{$content['lname']}" />
+        					<span class="red">{$error['lname']}</span>
+                        </div>
+                    </div>
+        			<div class="grid clearfix">
+        			    <div class="col-1-8">
+        			        Username:
+        			    </div>
+        			    <div class="col-7-8">
+        			        <input type="text" name="uname" value="{$content['uname']}" />
+        					<span class="red">{$error['uname']}</span>
+        			    </div>
+        			</div>
+        			<div class="grid clearfix">
+        			    <div class="col-1-8">
+        			        Email:
+        			    </div>
+        			    <div class="col-7-8">
+        			        <input type="text" name="email" value="{$content['email']}" />
+        					<span class="red">{$error['email']}</span>
+        			    </div>
+        			</div>
+        			<div class="grid clearfix">
+        			    <div class="col-1-8">
+        			        Password:
+        			    </div>
+        			    <div class="col-7-8">
+        			        <input type="password" name="pass" />
+        					<span class="red">{$error['pass']}</span>
+        			    </div>
+        			</div>
+        			<div class="grid clearfix">
+        			    <div class="col-1-8">
+        			        Confirm Password:
+        			    </div>
+        			    <div class="col-7-8">
+        			        <input type="password" name="cpass" />
+        					<span class="red">{$error['cpass']}</span>
+        			    </div>
+        			</div>
+                </div>
+            </div>            
+			<div class="grid clearfix">
+			    <div class="col-1-1">
+			        <input type="submit" />
+			    </div>
+            </div>
+        </form>
+    </div>
+</div>
 _END;
 } else {
 	$content['signup'] = <<<_END

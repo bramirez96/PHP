@@ -329,6 +329,18 @@ ul.dotted {
 .little_big {
 	font-size: 1.5em;
 }
+img#profile_pic {
+    width: 150px;
+    height: 150px;
+}
+.tiny {
+    font-size: .4em;
+    font-style: italic;
+    color: #BBB;
+}
+span.tiny {
+    font-size: .8em;
+}
 
 
 
