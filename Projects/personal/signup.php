@@ -1,7 +1,7 @@
 <?php #index.php //Just some shit (I want whiskey)
 #Day 2... still want some fucking whiskey
 
-include('./db_connect.php');
+include('./scripts/db_connect.php');
 
 session_start();
 //
@@ -168,7 +168,7 @@ _END;
 } else {
 	$content['signup'] = <<<_END
 <p>
-	You're logged in! Please log out before you sign up!
+	You&rsquo;re logged in! Please log out before you sign up!
 </p>
 _END;
 }

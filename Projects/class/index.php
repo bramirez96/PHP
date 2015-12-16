@@ -63,32 +63,36 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 if (!isset($_SESSION['user'])) { //!Change - if session variable for user is set
 	$content['login'] = "<div class=\"grid clearfix\"><div class=\"col-1-1\">";
 	$content['login'] .= <<<_END
-<form method="post" action="./index.php">
-	<h1>Log In:</h1>
-	<table id="login">
-		<tbody>
-			<tr>
-				<td>Email:</td>
-				<td>
-					<input type="text" name="email" value="{$content['email']}" />
-					<span class="red">{$error['email']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td>
-					<input type="password" name="pass" />
-					<span class="red">{$error['pass']}</span>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="Log In" />
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+<div class="grid clearfix">
+    <div class="col-1-1">
+        <form method="post" action="./index.php">
+            <h1>Log In:</h1>
+            <div class="grid clearfix nopad">
+                <div class="col-1-8">
+                    Email:<br />
+                </div>
+                <div class="col-7-8">
+                    <input type="text" name="email" value="{$content['email']}" />
+                    <span class="red">{$error['email']}</span>
+                </div>
+            </div>
+            <div class="grid clearfix">
+                <div class="col-1-8">
+                    Password:
+                </div>
+                <div class="col-7-8">
+                    <input type="password" name="pass" />
+                    <span class="red">{$error['pass']}</span>
+                </div>
+            </div>
+            <div class="grid clearfix">
+                <div class="col-1-1">
+                    <input type="submit" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>  
 _END;
 	$content['login'] .= "</div></div>";
 } else { //If user is logged in
