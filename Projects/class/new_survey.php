@@ -60,11 +60,6 @@ if (!empty($_POST)) { //Checks if the page was submitted or loaded from a link
 $content['login'] = <<<_END
 <script type="text/javscript" src="./scripts/datepicker.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javscript">
-	window.addEvent('load', function() {
-		new DatePicker('.datePicker');
-	})
-</script>
 <h1>New Survey:</h1>
 <form method="post" action="./check_survey.php" onsubmit="this.num_q.value = Question.count;return checkSubmit(this)">
 	<input id="keep_count" type="hidden" value="0" name="num_q" />

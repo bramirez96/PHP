@@ -60,11 +60,5 @@ function checkSubmit(form) {
 		document.getElementById('badDate').style.display = "inline";
 		z = false;
 	}
-	for (var i = 0; i < elem.length; i++) {
-		if (elem[i].value === "") {
-			z = false;
-			document.getElementById('empty').style.display = "inline";
-		}
-	}
 	return z;
 }
