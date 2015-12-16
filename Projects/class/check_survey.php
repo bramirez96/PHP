@@ -30,7 +30,7 @@ for ($i = 1; $i <= $_POST['num_q']; $i++) {
 
 //Eventually the below code will append statements to an sql query
 $sql   = ["START TRANSACTION;"];
-$sql[] = "INSERT INTO `2601166_entity_surveys` (`title`,`open`,`close`) VALUES ('{$survey[0]}',CURDATE(),CURDATE());";
+$sql[] = "INSERT INTO `2601166_entity_surveys` (`title`,`open`,`close`) VALUES ('{$survey[0]}',CURDATE(),'{$_POST['close']}');";
 $sql[] = "SELECT LAST_INSERT_ID() INTO @CUR_SURVEY_ID;";
 for ($i = 1; $i < count($survey); $i++) {
 	$sql[] = "INSERT INTO brandon.2601166_entity_questions (question, q_num, type_id) VALUES ('{$survey[$i]['question']}', '$i', '{$survey[$i]['type']}');";

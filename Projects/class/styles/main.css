@@ -329,7 +329,9 @@ ul.dotted {
 .little_big {
 	font-size: 1.5em;
 }
-
+#badDate , #empty{
+	display:none;
+}
 
 
 

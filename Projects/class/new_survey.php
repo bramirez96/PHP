@@ -66,7 +66,7 @@ $content['login'] = <<<_END
 	})
 </script>
 <h1>New Survey:</h1>
-<form method="post" action="./check_survey.php" onsubmit="this.num_q.value = Question.count">
+<form method="post" action="./check_survey.php" onsubmit="this.num_q.value = Question.count;return checkSubmit(this)">
 	<input id="keep_count" type="hidden" value="0" name="num_q" />
 	<div class="grid clearfix">
 		<div class="col-1-5">
@@ -88,7 +88,8 @@ $content['login'] = <<<_END
 		</div>
 		<div class="col-4-5">
 			<p>
-				<input name="close" type="text" value="" class="date datePicker" />
+				<input name="close" type="text" value="" placeholder="YYYY-MM-DD" />
+				<span id="badDate">Invalid date entered!</span>
 			</p>
 		</div>
 	</div>
@@ -106,6 +107,7 @@ $content['login'] = <<<_END
 		<div class="col-1-1">
 			<p>
 				<input type="submit" />
+				<span id="empty">Text fields can't be left empty!</span>
 			</p>
 		</div>
 	</div>

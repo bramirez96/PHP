@@ -48,3 +48,23 @@ Question.prototype.addAnswer = function() {
 }
 //Call once to create a first question, survey has to have at least one
 q = new Array(new Question());
+
+function checkSubmit(form) {
+	var myReg = /^(?:20[0-9]{2})-(?:1[0-2]{1}|0[1-9]{1})-(?:0[1-9]{1}|[1-2]{1}[0-9]{1}|3[01]{1})$/;
+	var close = form.elements.close.value;
+	var elem = form.elements;
+	var z = true;
+	if (myReg.test(close)) {
+		z = true;
+	} else {
+		document.getElementById('badDate').style.display = "inline";
+		z = false;
+	}
+	for (var i = 0; i < elem.length; i++) {
+		if (elem[i].value === "") {
+			z = false;
+			document.getElementById('empty').style.display = "inline";
+		}
+	}
+	return z;
+}
